@@ -4,7 +4,7 @@ empty spots and walls arr
 2 types of enemies: monsters and traps
 user controls the players using the keyboard and the computer controls the monsters
 
-collection of boards e=where each board represents a level
+collection of boards where each board represents a level
 a round (a game tick): player performs a single action, enemy performs a single action
 level ends when all enemies are dead (and the next level pops up)
 game ends when player completed all the levels, or when he dies
