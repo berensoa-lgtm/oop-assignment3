@@ -52,6 +52,26 @@ current health = min (healthPool, current health + (10 * defense)
 Randomly hits one enemy within range < 3 for an amount equals to 10% of the warrior’s health pool
 
 
+player type 2 - Mage:
+special ability: Blizzard - randomly hit enemies within range for an amount equals to the mage’s spell power at the cost of mana. the mage can't cast the ability if  current mana < cost
+properties:
+mana pool: Integer, holds the maximal value of mana. Initial value is received as a constructor argument.
+mana cost: Integer, represents how much the ability costs. Received as an argument.
+spell power: Integer. Initial value is received as a constructor argument.
+hits count: Integer, maximal number of times a single cast of the ability can produce hits. Received as an argument.
+ability range: Integer, ability range. Received as an argument
+-upon leveling up (in addition to the normal updates of all player types):
+mana pool = mana pool + (25 * level)
+current mana = min(mana pool, current mana + (mana pool / 4)
+spell power = spell power + (10 * level)
 
+on each game tick: current mana = min(mana pool, current mana + (1 * level)
+on ability cast: 
+current cost = current mana - cost
+hits = 0
+while (hits < hits count) && (∃ living enemy s.t. range(enemy, player) < ability range) - //meaning there's an enemy closer to the player than the ability range value
+|  Select random enemy within ability range.
+|  Deal damage (reduce health value) to the chosen enemy for an amount equal to spell power (each enemy may try to defend itself).
+|  hits ← hits + 1
 
 
