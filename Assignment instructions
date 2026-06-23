@@ -1,0 +1,44 @@
+types of classes: 
+- gameboard,
+- empty spots and walls arr
+- 3 types of players with different abilities
+- 2 types of enemies: monsters and traps\
+
+user controls the players using the keyboard and the computer controls the monsters
+
+collection of boards e=where each board represents a level
+a round (a game tick): player performs a single action, enemy performs a single action
+level ends when all enemies are dead (and the next level pops up)
+game ends when player completed all the levels, or when he dies
+
+game tiles are defined in 2 ways:
+cells: either there are walls on them (wall) or they're free to step on (floor)
+occupancy: either there's a player/enemy on them (traps included) - (Unit) or there isn't (Null)
+on the board, the classes will appear as the character that's on the tile/. that represents floor/# that represents walls
+
+on page 3 there's the math equation that represents the length of 2 points on the board
+
+game units include both the player and enemies, and all units should have these fields:
+Name: String
+Health - defined by healthPool: Integer, healthAmount: Integer
+AttackPoints: Integer
+DefensePoints: Integer
+in addition to these properties, the player class mush have the following properties as well:
+Experince: Integer - initialized at 0 and can be increased by killing monsters
+PlayerLevel (not the same as game level): Integer - initialized at 1, can be increased by gaining experience (after gaining 50 experience points the player will level up)
+-upon leveling up the player gets:
+experience = experience - (50 * level)
+level = level+1
+healthPool = healthPool + (10 * level)
+currentHealth = healthPool (fill it up to the max)
+attack = attack + (4 * level)
+defense = defense + (1 * level)
+-on ability cast attempt: if not enough resources: print a message accordingly, else: cast special ability
+
+player type 1 - Warrior:
+
+
+
+
+
+
