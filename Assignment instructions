@@ -76,3 +76,17 @@ while (hits < hits count) && (∃ living enemy s.t. range(enemy, player) < abili
 
 player type 3 - Rogue:
 special ability: fan of knives - hits everyone around him for an amount equal to the rogue's attack points at the cost of energy
+energy is used as a resource. Starting energy equals to the rogue’s maximum energy which is 100
+Rogue can't cast the ability if current energy < cost //current energy and cost are class properties
+properties:
+cost: Integer - special ability cost, received as a constructor argument
+current energy: Integer (initialized at it's max value: 100)
+upon leveling up (in addition to the normal updates of all player types):
+current energy = 100
+attack = attack + (3 * level)
+
+on each game tick: current energy = min(current energy + 10, 100)
+on ability cast:
+current energy = current energy - cost
+For each enemy within range < 2, deal damage (reduce health value) equals to the rogue’s attack points (each enemy will try to defend itself).
+
