@@ -1,9 +1,7 @@
-types of classes: 
-- gameboard,
-- empty spots and walls arr
-- 3 types of players with different abilities
-- 2 types of enemies: monsters and traps\
-
+gameboard,
+empty spots and walls arr
+3 types of players with different abilities
+2 types of enemies: monsters and traps
 user controls the players using the keyboard and the computer controls the monsters
 
 collection of boards e=where each board represents a level
@@ -35,8 +33,23 @@ attack = attack + (4 * level)
 defense = defense + (1 * level)
 -on ability cast attempt: if not enough resources: print a message accordingly, else: cast special ability
 
+every type of player has a differant special ability, and he may use it improve his situation at the cost of resources
 player type 1 - Warrior:
+special ability: Avenger's sheild - randomly hits one enemy within range < 3 for 10% of the warrior’s max health, and heals the warrior by (10 × defense: capped at health pool). this ability has a cooldown, meaning it can only be used once for every "ability game tick", and he can't cast it if the remaining cooldown > 0
+properties: 
+ability cooldown: Integer )gets it in the constructor, repsents the number of game ticks that must pass between each time he can cast his ability)
+remaining cooldown: Integer (initialized at 0, represents the number of ticks left until he can cast his ability again)
+-upon leveling up (in addition to the normal updates of all player types):
+remaining cooldown = 0
+health pool = health pool + (5 * level)
+attack = attack + (2 * level)
+defense = defense + (1 * level)
 
+on each game tick: remaining cooldown = remaining cooldown - 1
+on ability cast:
+remaining cooldown = ability cooldown
+current health = min (healthPool, current health + (10 * defense)
+Randomly hits one enemy within range < 3 for an amount equals to 10% of the warrior’s health pool
 
 
 
