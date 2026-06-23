@@ -1,0 +1,138 @@
+gameboard,
+empty spots and walls arr
+3 types of players with different abilities
+2 types of enemies: monsters and traps
+user controls the players using the keyboard and the computer controls the monsters
+
+collection of boards e=where each board represents a level
+a round (a game tick): player performs a single action, enemy performs a single action
+level ends when all enemies are dead (and the next level pops up)
+game ends when player completed all the levels, or when he dies
+
+game tiles are defined in 2 ways:
+cells: either there are walls on them (wall) or they're free to step on (floor)
+occupancy: either there's a player/enemy on them (traps included) - (Unit) or there isn't (Null)
+on the board, the classes will appear as the character that's on the tile/. that represents floor/# that represents walls
+
+on page 3 there's the math equation that represents the length of 2 points on the board
+
+game units include both the player and enemies, and all units should have these fields:
+Name: String
+Health - defined by healthPool: Integer, healthAmount: Integer
+AttackPoints: Integer
+DefensePoints: Integer
+in addition to these properties, the player class mush have the following properties as well:
+Experince: Integer - initialized at 0 and can be increased by killing monsters
+PlayerLevel (not the same as game level): Integer - initialized at 1, can be increased by gaining experience (after gaining 50 experience points the player will level up)
+-upon leveling up the player gets:
+experience = experience - (50 * level)
+level = level+1
+healthPool = healthPool + (10 * level)
+currentHealth = healthPool (fill it up to the max)
+attack = attack + (4 * level)
+defense = defense + (1 * level)
+-on ability cast attempt: if not enough resources: print a message accordingly, else: cast special ability
+
+every type of player has a differant special ability, and he may use it improve his situation at the cost of resources
+player type 1 - Warrior:
+special ability: Avenger's sheild - randomly hits one enemy within range < 3 for 10% of the warrior’s max health, and heals the warrior by (10 × defense: capped at health pool). this ability has a cooldown, meaning it can only be used once for every "ability game tick", and he can't cast it if the remaining cooldown > 0
+properties: 
+ability cooldown: Integer )gets it in the constructor, repsents the number of game ticks that must pass between each time he can cast his ability)
+remaining cooldown: Integer (initialized at 0, represents the number of ticks left until he can cast his ability again)
+-upon leveling up (in addition to the normal updates of all player types):
+remaining cooldown = 0
+health pool = health pool + (5 * level)
+attack = attack + (2 * level)
+defense = defense + (1 * level)
+
+on each game tick: remaining cooldown = remaining cooldown - 1
+on ability cast:
+remaining cooldown = ability cooldown
+current health = min (healthPool, current health + (10 * defense)
+Randomly hits one enemy within range < 3 for an amount equals to 10% of the warrior’s health pool
+
+
+player type 2 - Mage:
+special ability: Blizzard - randomly hit enemies within range for an amount equals to the mage’s spell power at the cost of mana. the mage can't cast the ability if  current mana < cost //spell power, current mana, cost are class properties
+properties:
+mana pool: Integer, holds the maximal value of mana. Initial value is received as a constructor argument.
+mana cost: Integer, represents how much the ability costs. Received as an argument.
+spell power: Integer. Initial value is received as a constructor argument.
+hits count: Integer, maximal number of times a single cast of the ability can produce hits. Received as an argument.
+ability range: Integer, ability range. Received as an argument
+-upon leveling up (in addition to the normal updates of all player types):
+mana pool = mana pool + (25 * level)
+current mana = min(mana pool, current mana + (mana pool / 4)
+spell power = spell power + (10 * level)
+
+on each game tick: current mana = min(mana pool, current mana + (1 * level)
+on ability cast: 
+current cost = current mana - cost
+hits = 0
+while (hits < hits count) && (∃ living enemy s.t. range(enemy, player) < ability range) - //there's an enemy closer to the player than the ability range property value
+|  Select random enemy within ability range.
+|  Deal damage (reduce health value) to the chosen enemy for an amount equal to spell power (each enemy may try to defend itself).
+|  hits ← hits + 1
+
+player type 3 - Rogue:
+special ability: fan of knives - hits everyone around him for an amount equal to the rogue's attack points at the cost of energy
+energy is used as a resource. Starting energy equals to the rogue’s maximum energy which is 100
+Rogue can't cast the ability if current energy < cost //current energy and cost are class properties
+properties:
+cost: Integer - special ability cost, received as a constructor argument
+current energy: Integer (initialized at it's max value: 100)
+upon leveling up (in addition to the normal updates of all player types):
+current energy = 100
+attack = attack + (3 * level)
+
+on each game tick: current energy = min(current energy + 10, 100)
+on ability cast:
+current energy = current energy - cost
+For each enemy within range < 2, deal damage (reduce health value) equals to the rogue’s attack points (each enemy will try to defend itself).
+
+Both types of enemies have the following property: experienceValue: Integer - the amount of experience the player gains by defeating this enemy
+Enemy type 1 - Monster:
+property: visionRange: Integer - represents the monsters vision range, a constructor argument
+on enemy's turn:
+the monster will travel around the board
+monster's can move 1 step at a time, either left, right, up or down, and ay chase the player if he is within it's vision range
+
+Movement rules described as follows:
+if range(monster, player) < vision range then
+| dx ← enemyX − playerX
+| dy ← enemyY − playerY
+| if |dx| > |dy| then
+| | if dx > 0 then
+| | | Move left
+| | else
+| | | Move right
+| else
+| | if dy > 0 then
+| | | Move up
+| | else
+| | | Move down
+else
+| Perform a random movement action: left, right, up, down or stay at the same place
+
+Enemy type 2 - Trap:
+fields: 
+visibility time: Integer - amount of ticks that the trap remains visible for, a constructor's argument
+invisibility time: Integer - amount of ticks that the trap remains invisible for, a constructor's argument
+ticks count: Integer - counts the number of ticks since last visibility state change, initialized at 0
+visible: Boolean - indicates whether the trap is currently visible or not, initially true
+
+on enemy turn:
+A trap can’t move (unlike monsters), but updates its state (visibility) on each turn.
+After (visibility time) game ticks, the trap will become invisible //visibility time meaning the field value
+The trap becomes visible again after (invisibility time) game ticks elapsed //invisibility time meaning the field value
+The trap may attack the player if range (trap, player) < 2
+
+The trap’s state will be updated on each turn as follows:
+visible = (ticks count < visibility time) //boolean
+if ticks count == (visibility time + invisibility time) then
+| ticks count = 0
+else
+| ticks count = ticks count + 1
+if range(trap, player) < 2 then
+| attack(player)
+ 
