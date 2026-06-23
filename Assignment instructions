@@ -90,3 +90,49 @@ on ability cast:
 current energy = current energy - cost
 For each enemy within range < 2, deal damage (reduce health value) equals to the rogue’s attack points (each enemy will try to defend itself).
 
+Both types of enemies have the following property: experienceValue: Integer - the amount of experience the player gains by defeating this enemy
+Enemy type 1 - Monster:
+property: visionRange: Integer - represents the monsters vision range, a constructor argument
+on enemy's turn:
+the monster will travel around the board
+monster's can move 1 step at a time, either left, right, up or down, and ay chase the player if he is within it's vision range
+
+Movement rules described as follows:
+if range(monster, player) < vision range then
+| dx ← enemyX − playerX
+| dy ← enemyY − playerY
+| if |dx| > |dy| then
+| | if dx > 0 then
+| | | Move left
+| | else
+| | | Move right
+| else
+| | if dy > 0 then
+| | | Move up
+| | else
+| | | Move down
+else
+| Perform a random movement action: left, right, up, down or stay at the same place
+
+Enemy type 2 - Trap:
+fields: 
+visibility time: Integer - amount of ticks that the trap remains visible for, a constructor's argument
+invisibility time: Integer - amount of ticks that the trap remains invisible for, a constructor's argument
+ticks count: Integer - counts the number of ticks since last visibility state change, initialized at 0
+visible: Boolean - indicates whether the trap is currently visible or not, initially true
+
+on enemy turn:
+A trap can’t move (unlike monsters), but updates its state (visibility) on each turn.
+After (visibility time) game ticks, the trap will become invisible //visibility time meaning the field value
+The trap becomes visible again after (invisibility time) game ticks elapsed //invisibility time meaning the field value
+The trap may attack the player if range (trap, player) < 2
+
+The trap’s state will be updated on each turn as follows:
+visible = (ticks count < visibility time) //boolean
+if ticks count == (visibility time + invisibility time) then
+| ticks count = 0
+else
+| ticks count = ticks count + 1
+if range(trap, player) < 2 then
+| attack(player)
+ 
