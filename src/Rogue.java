@@ -3,8 +3,7 @@ public class Rogue extends Player{
     private int currentEnergy;
 
     public Rogue(int cost){
-        this.experience = 0; //to every type of player
-        this.playerLevel = 1; //to every type of player
+        super.initializeProperties();
         this.cost = cost;
         this.currentEnergy = 100;
 

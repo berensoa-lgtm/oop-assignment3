@@ -6,6 +6,11 @@ public abstract class Player extends Occupant {
     public abstract void levelUp();
     public abstract void gameTick();
 
+    protected void initializeProperties(){
+        this.experience = 0;
+        this.playerLevel = 1;
+    }
+
     protected void levelUpPlayer(){
         this.experience = experience - (50 * playerLevel);
         this.playerLevel += 1;
