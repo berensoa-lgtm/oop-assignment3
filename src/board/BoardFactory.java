@@ -1,9 +1,6 @@
 package board;
 
-import entities.Enemy;
-import entities.Occupant;
-import entities.Player;
-import entities.Unit;
+import entities.*;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +11,9 @@ public class BoardFactory {
             Map.of(
                     '#', Wall::new,
                     '.', Floor::new,
-                    's', () -> new Floor(new Enemy())
+                    's', () -> new Floor(new Monster(
+                            ""
+                    ))
             );
     public static Cell[][] toCells(List<String> lines){
         Cell[][] cells = new Cell[lines.size()][lines.get(0).length()];
