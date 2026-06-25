@@ -7,8 +7,7 @@ public class Mage extends Player{
     private int abilityRange;
 
     public Mage(int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange){
-        this.experience = 0; //to every type of player
-        this.playerLevel = 1; //to every type of player
+        super.initializeProperties();
         this.manaPool = manaPool;
         this.currentMana = manaPool / 4;
         this.manaCost = manaCost;

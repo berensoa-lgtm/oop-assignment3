@@ -3,8 +3,7 @@ public class Warrior extends Player{
     private int abilityCooldown;
     private int remainingCooldown;
     public Warrior(int abilityCooldown){
-        this.experience = 0; //to every type of player
-        this.playerLevel = 1; //to every type of player
+        super.initializeProperties();
         this.abilityCooldown = abilityCooldown;
         this.remainingCooldown = 0;
     }
@@ -17,7 +16,6 @@ public class Warrior extends Player{
             //cast ability: randomly hit an enemy within range < 3 for an amount equals to 10% of the warrior’s health pool
             currentHealth = Math.min(healthPool, currentHealth + (10 * defensePoints));
             remainingCooldown = abilityCooldown;
-
         }
     }
 
