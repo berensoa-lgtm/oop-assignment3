@@ -4,8 +4,8 @@ import entities.*;
 
 public class Floor implements Cell{
     private Occupant occupant;
-    public Floor(Occupant o){
-        this.occupant = o;
+    public Floor(){
+        this.occupant = null;
     }
     public String accept(CellVisitor v){
         return v.visit(this);
@@ -18,5 +18,6 @@ public class Floor implements Cell{
 
     @Override
     public void setOccupant(Occupant occupant) {
+        this.occupant = occupant;
     }
 }
