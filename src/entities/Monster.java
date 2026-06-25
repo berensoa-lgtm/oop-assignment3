@@ -2,9 +2,9 @@ package entities;
 
 public class Monster extends Enemy{
     private int visionRange;
-    public Monster(String name, int healthPool, int healthAmount, int attack, int defend, int exp, int vision){
+    public Monster(String name, int healthPool, int attack, int defend, int vision, int exp){
         this.name = name;
-        this.healthAmount = healthAmount;
+        this.healthAmount = healthPool;
         this.healthPool = healthPool;
         this.attackPoints = attack;
         this.defensePoints = defend;
