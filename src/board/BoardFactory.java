@@ -22,11 +22,11 @@ public class BoardFactory {
                     Map.entry('C', () -> new Floor(new Monster("Queen Cersei", 100, 10, 10, 1, 1000))),
                     Map.entry('K', () -> new Floor(new Monster("Night's King", 5000, 300, 150, 8, 5000))),
 
-                    Map.entry('B', () -> new Floor(new Trap("Bonus Trap", ))),
-                    Map.entry('Q', () -> new Floor(new Trap("Spike Pit", 1, 100, 250))),
-                    Map.entry('D', () -> new Floor(new Trap("Death Trap", 500, 100, 500)))
+                    Map.entry('B', () -> new Floor(new Trap("Bonus", 1, 1, 1, 250, 1, 5))),
+                    Map.entry('Q', () -> new Floor(new Trap("Queen's Trap", 250, 50, 10, 100, 3, 7))),
+                    Map.entry('D', () -> new Floor(new Trap("Death Trap", 500, 100, 20, 250, 1, 10)))
             );
-    public static Cell[][] toCells(List<String> lines){
+    public static Cell[][] createCells(List<String> lines, List<Unit> units){
         Cell[][] cells = new Cell[lines.size()][lines.get(0).length()];
         for (int row = 0; row < lines.size(); row++){
 
@@ -34,27 +34,19 @@ public class BoardFactory {
             for (int i = 0; i < l.length(); i++){
 
                 char c = l.charAt(i);
-                if (c == '#')
-                    initializeWall(cells, i, row);
-                else{
-                    Floor f = initializeFloor(cells, i , row);
-                    if (c == 's')
-                        initializeOccupant(f, new Monster());
-                    if ()
+                Supplier<Cell> supplier = creators.get(c);
+                if (supplier == null) {
+                    supplier = Floor::new;
+                }
+                cells[row][i] = supplier.get();
+                Occupant occupant = supplier.get().getOccupant();
+                if (occupant != null) {
+                    Unit unit = occupant.getUnit();
+                    units.add(unit);
                 }
             }
         }
+        return cells;
     }
 
-    public static void initializeWall(Cell[][] cells, int x, int y){
-        cells[y][x] = new Wall();
-    }
-    public static Floor initializeFloor(Cell[][] cells, int x, int y){
-        Floor f = new Floor();
-        cells[y][x] = f;
-        return f;
-    }
-    public static void initializeOccupant(Floor f, Unit u){
-
-    }
 }

@@ -6,7 +6,8 @@ import entities.Unit;
 
 public class GameBoard {
     private Cell[][] array;
-    public GameBoard(int n){
+    public GameBoard(Cell[][] a){
+        array = a;
     }
     public Cell getCell(Position p){
         return array[p.getY()][p.getX()];
