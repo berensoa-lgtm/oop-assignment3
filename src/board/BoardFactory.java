@@ -1,11 +1,21 @@
 package board;
 
+import entities.Enemy;
+import entities.Occupant;
 import entities.Player;
 import entities.Unit;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
-public class BoardUtils {
+public class BoardFactory {
+    private static final Map<Character, Supplier<Cell>> creators =
+            Map.of(
+                    '#', Wall::new,
+                    '.', Floor::new,
+                    's', () -> new Floor(new Enemy())
+            );
     public static Cell[][] toCells(List<String> lines){
         Cell[][] cells = new Cell[lines.size()][lines.get(0).length()];
         for (int row = 0; row < lines.size(); row++){

@@ -7,6 +7,12 @@ public class Floor implements Cell{
     public Floor(){
         this.occupant = null;
     }
+    public Floor(Occupant o){
+        this.occupant = o;
+    }
+    public Floor(Unit u){
+        this.occupant = new Occupant(u);
+    }
     public String accept(CellVisitor v){
         return v.visit(this);
     }
