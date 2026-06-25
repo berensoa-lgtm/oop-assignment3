@@ -21,9 +21,9 @@ public class BoardFactory {
                     Map.entry('M', () -> new Floor(new Monster("The Mountain", 1000, 60, 25, 6, 500))),
                     Map.entry('C', () -> new Floor(new Monster("Queen Cersei", 100, 10, 10, 1, 1000))),
                     Map.entry('K', () -> new Floor(new Monster("Night's King", 5000, 300, 150, 8, 5000))),
-                    
-                    Map.entry('B', () -> new Floor(new Trap("Bear Trap", 250, 1, 100))),
-                    Map.entry('P', () -> new Floor(new Trap("Spike Pit", 1, 100, 250))),
+
+                    Map.entry('B', () -> new Floor(new Trap("Bonus Trap", ))),
+                    Map.entry('Q', () -> new Floor(new Trap("Spike Pit", 1, 100, 250))),
                     Map.entry('D', () -> new Floor(new Trap("Death Trap", 500, 100, 500)))
             );
     public static Cell[][] toCells(List<String> lines){
