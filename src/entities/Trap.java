@@ -6,11 +6,15 @@ public class Trap extends Enemy{
     private int tickCount;
     private boolean visible;
 
-    public Trap(int visibilityTime, int invisibilityTime){
+    public Trap(String name, int attack, int defense, int exp, int visibilityTime, int invisibilityTime){
         this.visTime = visibilityTime;
         this.invisTime = invisibilityTime;
         this.tickCount = 0;
         this.visible = true;
+        this.name = name;
+        this.attackPoints = attack;
+        this.defensePoints = defense;
+        this.experienceValue = exp;
     }
     @Override
     String accept(OccupantVisitor occupantVisitor) {
