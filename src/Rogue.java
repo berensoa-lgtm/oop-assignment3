@@ -1,8 +1,29 @@
 public class Rogue extends Player{
     private int cost;
     private int currentEnergy;
+
+    public Rogue(int cost){
+        this.experience = 0; //to every type of player
+        this.playerLevel = 1; //to every type of player
+        this.cost = cost;
+        this.currentEnergy = 100;
+
+    }
+
     @Override
     public void cast() {
+        if(currentEnergy < cost){
+            //can't cast ability
+        }
+        else {
+            currentEnergy -= cost;
+            //cast ability
+
+        }
+    }
+
+    @Override
+    public void gameTick(){
 
     }
 
