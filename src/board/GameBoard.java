@@ -1,18 +1,22 @@
 package board;
 
 import board.Cell;
+import entities.Occupant;
 import entities.Unit;
 
 public class GameBoard {
     private Cell[][] array;
+    public GameBoard(int n){
+    }
     public Cell getCell(Position p){
         return array[p.getY()][p.getX()];
     }
-    public Unit getOccupant(Position p){
-
+    public Occupant getOccupant(Position p){
+        Cell cell = getCell(p);
+        return cell.getOccupant();
     }
-    public void setOccupant(Position p, Unit o){
-
+    public void setOccupant(Position p, Occupant o){
+        Cell cell = getCell(p);
+        cell.setOccupant(o);
     }
-
 }

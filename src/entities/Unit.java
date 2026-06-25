@@ -6,14 +6,9 @@ public abstract class Unit {
     protected int healthAmount;
     protected int attackPoints;
     protected int defensePoints;
-    abstract String attack(Unit u);
-    abstract String defend(Unit u);
     abstract String initializeInteraction(Enemy e);
     abstract String initializeInteraction(Player p);
-
-    public void visit(Unit u) {
-
-    }
+    abstract void loseHealth(int damage);
 
     abstract String accept(OccupantVisitor occupantVisitor);
 }
