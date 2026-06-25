@@ -52,7 +52,7 @@ current health = min (healthPool, current health + (10 * defense)
 Randomly hits one enemy within range < 3 for an amount equals to 10% of the warrior’s health pool
 
 
-player type 2 - entities.Mage:
+player type 2 - Mage:
 special ability: Blizzard - randomly hit enemies within range for an amount equals to the mage’s spell power at the cost of mana. the mage can't cast the ability if  current mana < cost //spell power, current mana, cost are class properties
 properties:
 mana pool: Integer, holds the maximal value of mana. Initial value is received as a constructor argument.
