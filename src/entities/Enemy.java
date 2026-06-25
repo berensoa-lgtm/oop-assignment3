@@ -1,7 +1,7 @@
 package entities;
 
 public abstract class Enemy extends Unit {
-    private int experienceValue;
+    protected int experienceValue;
     public String initializeInteraction(Enemy e){
         return "nothing";
     }
