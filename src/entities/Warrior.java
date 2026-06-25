@@ -1,4 +1,6 @@
-public class Warrior extends Player{
+package entities;
+
+public class Warrior extends Player {
 
     private int abilityCooldown;
     private int remainingCooldown;

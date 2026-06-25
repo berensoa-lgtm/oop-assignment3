@@ -11,7 +11,7 @@ game ends when player completed all the levels, or when he dies
 
 game tiles are defined in 2 ways:
 cells: either there are walls on them (wall) or they're free to step on (floor)
-occupancy: either there's a player/enemy on them (traps included) - (Unit) or there isn't (Null)
+occupancy: either there's a player/enemy on them (traps included) - (entities.Unit) or there isn't (Null)
 on the board, the classes will appear as the character that's on the tile/. that represents floor/# that represents walls
 
 on page 3 there's the math equation that represents the length of 2 points on the board
@@ -34,7 +34,7 @@ defense = defense + (1 * level)
 -on ability cast attempt: if not enough resources: print a message accordingly, else: cast special ability
 
 every type of player has a differant special ability, and he may use it improve his situation at the cost of resources
-player type 1 - Warrior:
+player type 1 - entities.Warrior:
 special ability: Avenger's sheild - randomly hits one enemy within range < 3 for 10% of the warrior’s max health, and heals the warrior by (10 × defense: capped at health pool). this ability has a cooldown, meaning it can only be used once for every "ability game tick", and he can't cast it if the remaining cooldown > 0
 properties: 
 ability cooldown: Integer )gets it in the constructor, repsents the number of game ticks that must pass between each time he can cast his ability)
@@ -52,7 +52,7 @@ current health = min (healthPool, current health + (10 * defense)
 Randomly hits one enemy within range < 3 for an amount equals to 10% of the warrior’s health pool
 
 
-player type 2 - Mage:
+player type 2 - entities.Mage:
 special ability: Blizzard - randomly hit enemies within range for an amount equals to the mage’s spell power at the cost of mana. the mage can't cast the ability if  current mana < cost //spell power, current mana, cost are class properties
 properties:
 mana pool: Integer, holds the maximal value of mana. Initial value is received as a constructor argument.
@@ -74,10 +74,10 @@ while (hits < hits count) && (∃ living enemy s.t. range(enemy, player) < abili
 |  Deal damage (reduce health value) to the chosen enemy for an amount equal to spell power (each enemy may try to defend itself).
 |  hits ← hits + 1
 
-player type 3 - Rogue:
+player type 3 - entities.Rogue:
 special ability: fan of knives - hits everyone around him for an amount equal to the rogue's attack points at the cost of energy
 energy is used as a resource. Starting energy equals to the rogue’s maximum energy which is 100
-Rogue can't cast the ability if current energy < cost //current energy and cost are class properties
+entities.Rogue can't cast the ability if current energy < cost //current energy and cost are class properties
 properties:
 cost: Integer - special ability cost, received as a constructor argument
 current energy: Integer (initialized at it's max value: 100)
@@ -91,7 +91,7 @@ current energy = current energy - cost
 For each enemy within range < 2, deal damage (reduce health value) equals to the rogue’s attack points (each enemy will try to defend itself).
 
 Both types of enemies have the following property: experienceValue: Integer - the amount of experience the player gains by defeating this enemy
-Enemy type 1 - Monster:
+entities.Enemy type 1 - Monster:
 property: visionRange: Integer - represents the monsters vision range, a constructor argument
 on enemy's turn:
 the monster will travel around the board
@@ -114,7 +114,7 @@ if range(monster, player) < vision range then
 else
 | Perform a random movement action: left, right, up, down or stay at the same place
 
-Enemy type 2 - Trap:
+entities.Enemy type 2 - Trap:
 fields: 
 visibility time: Integer - amount of ticks that the trap remains visible for, a constructor's argument
 invisibility time: Integer - amount of ticks that the trap remains invisible for, a constructor's argument

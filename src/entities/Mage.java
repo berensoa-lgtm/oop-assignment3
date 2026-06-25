@@ -1,4 +1,6 @@
-public class Mage extends Player{
+package entities;
+
+public class Mage extends Player {
     private int manaPool;
     private int manaCost;
     private int currentMana;

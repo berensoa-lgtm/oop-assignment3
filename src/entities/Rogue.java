@@ -1,4 +1,6 @@
-public class Rogue extends Player{
+package entities;
+
+public class Rogue extends Player {
     private int cost;
     private int currentEnergy;
     @Override
