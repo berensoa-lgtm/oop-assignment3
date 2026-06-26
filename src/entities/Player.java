@@ -54,7 +54,7 @@ public abstract class Player extends Unit {
         healthAmount -= dmg;
     }
     @Override
-    String accept(OccupantVisitor occupantVisitor) {
+    String accept(OccupantVisitor occupantVisitor, EventManager em) {
         return null;
     }
     @Override

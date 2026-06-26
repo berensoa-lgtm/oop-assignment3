@@ -8,8 +8,8 @@ public class OccupantVisitor {
     public String visit(Enemy e){
         return unit.initializeInteraction(e);
     }
-    public String visit(Player p){
-        return unit.initializeInteraction(p);
+    public String visit(Player p, EventManager em){
+        return unit.initializeInteraction(p, em);
     }
 
 }
