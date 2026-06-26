@@ -43,6 +43,7 @@ public class BoardFactory {
                     supplier = Floor::new;
                 }
                 Cell cell = supplier.get();
+                cell.setSymbol(c);
                 cells[row][i] = cell;
                 Occupant occupant = cell.getOccupant();
                 if (occupant != null && !occupant.getUnit().equals(player)) {

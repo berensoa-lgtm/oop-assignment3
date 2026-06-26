@@ -1,5 +1,7 @@
 package entities;
 
+import level.EventManager;
+
 public abstract class Unit {
     protected String name;
     protected int healthPool;
@@ -10,7 +12,7 @@ public abstract class Unit {
     abstract String initializeInteraction(Player p);
     abstract void loseHealth(int damage);
 
-    abstract String accept(OccupantVisitor occupantVisitor);
+    abstract String accept(OccupantVisitor occupantVisitor, EventManager em);
 
     protected void initializeProperties(int health, int attack, int defense) {
         this.attackPoints = attack;

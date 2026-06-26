@@ -1,5 +1,7 @@
 package entities;
 import board.*;
+import level.EventManager;
+
 public class CellVisitor {
     private Unit unit;
     private OccupantVisitor occupantVisitor;
@@ -8,14 +10,14 @@ public class CellVisitor {
         this.occupantVisitor = new OccupantVisitor(u);
     }
 
-    public String visit(Floor floor) {
+    public String visit(Floor floor, EventManager em) {
         Occupant floorOcc = floor.getOccupant();
         if (floorOcc == null) {
             floor.setOccupant(new Occupant(unit));
-            return "Move here";
+            em.publish("MOVED");
         }
         else{
-            return floorOcc.accept(occupantVisitor);
+            return floorOcc.accept(occupantVisitor, em);
         }
     }
     public String visit(Wall wall) {

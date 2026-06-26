@@ -1,8 +1,10 @@
 package board;
 
 import board.Cell;
+import entities.CellVisitor;
 import entities.Occupant;
 import entities.Unit;
+import level.EventManager;
 
 public class GameBoard {
     private Cell[][] array;
@@ -19,5 +21,9 @@ public class GameBoard {
     public void setOccupant(Position p, Occupant o){
         Cell cell = getCell(p);
         cell.setOccupant(o);
+    }
+    public void visitCell(Position p, Unit u, EventManager em){
+        Cell cell = getCell(p);
+        cell.accept(new CellVisitor(u), em);
     }
 }
