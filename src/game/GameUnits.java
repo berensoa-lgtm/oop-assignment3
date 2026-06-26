@@ -8,6 +8,7 @@ public class GameUnits {
     private List<Unit> units;
     public GameUnits(List<Unit> u, Player p){
         units = u;
+        player = p;
     }
     public void gameTick(){
         //prompt player turn

@@ -18,4 +18,12 @@ public abstract class Unit {
         this.healthAmount = health;
         this.defensePoints = defense;
     }
+    public String toString(){
+        String s = "";
+        s += name + "   ";
+        s += "Health: "+healthAmount+"/"+healthPool+"   ";
+        s+= "Attack: "+attackPoints+"   ";
+        s+= "Defense: "+defensePoints+"   ";
+        return s;
+    }
 }

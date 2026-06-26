@@ -53,4 +53,5 @@ public class Mage extends Player{
         currentMana = Math.min(manaPool, currentMana + (manaPool / 4));
         spellPower += (10 * playerLevel);
     }
+
 }

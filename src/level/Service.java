@@ -38,11 +38,12 @@ public class Service {
             System.out.println(s);
         }
     }
-    public String printPlayer(){
-        return b.stringPlayer();
+    public void printPlayer(){
+        System.out.println(b.stringPlayer());
     }
     public String userTurn(Scanner s){
         String input = s.next();
+        //validate ?
         return input;
     }
     public void enemiesTurn(){

@@ -36,4 +36,11 @@ public abstract class Player extends Unit {
     String accept(OccupantVisitor occupantVisitor) {
         return null;
     }
+    @Override
+    public String toString(){
+        String s = super.toString();
+        s+="Level: "+playerLevel+"   ";
+        s+= "Experience: "+experience+"   ";
+        return s;
+    }
 }
