@@ -43,7 +43,6 @@ public class Business{
             toPosition = userPosition.down();
         else if (c == 'd')
             toPosition = userPosition.right();
-        Occupant o = null;
         board.visitCell(toPosition, units.getPlayer(), eventManager);
     }
 

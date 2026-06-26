@@ -20,7 +20,4 @@ public class GameUnits {
         return player;
     }
 
-    public void playerMoveUp() {
-
-    }
 }
