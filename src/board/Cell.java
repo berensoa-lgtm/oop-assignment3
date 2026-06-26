@@ -5,10 +5,16 @@ import entities.Occupant;
 import entities.Unit;
 import level.EventManager;
 
-public interface Cell {
-    String accept(CellVisitor v, EventManager em);
-    default Occupant getOccupant(){
-        return null;
+public abstract class Cell {
+    protected char symbol;
+
+    public void setSymbol(char c) {
+        symbol = c;
     }
-    default void setOccupant(Occupant o){};
+    public char getSymbol(char c){
+        return symbol;
+    }
+    abstract String accept(CellVisitor v, EventManager em);
+    abstract Occupant getOccupant();
+    abstract void setOccupant(Occupant o);
 }
