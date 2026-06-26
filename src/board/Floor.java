@@ -3,7 +3,9 @@ package board;
 import entities.*;
 import level.EventManager;
 
-public class Floor implements Cell{
+import javax.swing.*;
+
+public class Floor extends Cell{
     private Occupant occupant;
     public Floor(){
         this.occupant = null;
@@ -14,7 +16,7 @@ public class Floor implements Cell{
     public Floor(Unit u){
         this.occupant = new Occupant(u);
     }
-    public String accept(CellVisitor v, EventManager em){
+    public ActionResult accept(CellVisitor v, EventManager em){
         return v.visit(this, em);
     }
 

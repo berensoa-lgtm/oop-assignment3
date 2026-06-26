@@ -1,5 +1,6 @@
 package board;
 
+import entities.ActionResult;
 import entities.CellVisitor;
 import entities.Occupant;
 import entities.Unit;
@@ -14,7 +15,7 @@ public abstract class Cell {
     public char getSymbol(char c){
         return symbol;
     }
-    abstract String accept(CellVisitor v, EventManager em);
+    abstract ActionResult accept(CellVisitor v, EventManager em);
     abstract Occupant getOccupant();
     abstract void setOccupant(Occupant o);
 }

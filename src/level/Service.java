@@ -13,22 +13,20 @@ import java.util.Scanner;
 public class Service{
     private Business b;
     private CLI cli;
-    private List<String> lines;
 
     public Service (List<String> lines, Player player){
-        List<Unit> units = new ArrayList<>();
-        GameBoard board = new GameBoard(BoardFactory.createCells(lines, units, player));
-        GameUnits gameUnits = new GameUnits(units, player);
+        List<Unit> enemies = new ArrayList<>();
+        GameBoard board = new GameBoard(BoardFactory.createCells(lines, enemies, player));
+        GameUnits gameUnits = new GameUnits(enemies, player);
         this.b = new Business(board, gameUnits);
         this.cli = new CLI();
         b.addListener(cli);
-        this.lines = lines;
     }
     public void level(Scanner s){
         boolean playerAlive = true;
         boolean enemiesAlive = true;
         while(playerAlive && enemiesAlive){
-            cli.printBoard(lines);
+            cli.printBoard(b.getBoard().toString());
             cli.printPlayer(b.getPlayer().toString());
             userTurn(s);
             enemiesTurn();

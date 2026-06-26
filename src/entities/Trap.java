@@ -18,8 +18,4 @@ public class Trap extends Enemy{
         this.healthAmount = health;
         this.healthPool = health;
     }
-    @Override
-    String accept(OccupantVisitor occupantVisitor) {
-        return null;
-    }
 }
