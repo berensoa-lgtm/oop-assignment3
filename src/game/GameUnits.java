@@ -5,14 +5,14 @@ import java.util.List;
 
 public class GameUnits {
     private Player player;
-    private List<Unit> units;
-    public GameUnits(List<Unit> u, Player p){
-        units = u;
+    private List<Unit> enemies;
+    public GameUnits(List<Unit> e, Player p){
+        enemies = e;
         player = p;
     }
     public void gameTick(){
 
-        for (Unit u : units){
+        for (Unit u : enemies){
            // u.gameTick();
         }
     }

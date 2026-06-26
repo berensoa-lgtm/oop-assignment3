@@ -10,17 +10,19 @@ public class CellVisitor {
         this.occupantVisitor = new OccupantVisitor(u);
     }
 
-    public String visit(Floor floor, EventManager em) {
+    public ActionResult visit(Floor floor, EventManager em) {
         Occupant floorOcc = floor.getOccupant();
         if (floorOcc == null) {
             floor.setOccupant(new Occupant(unit));
-            em.publish("MOVED");
+            ActionResult result = new ActionResult();
+            result.moved();
+            return result;
         }
         else{
             return floorOcc.accept(occupantVisitor, em);
         }
     }
-    public String visit(Wall wall) {
-        return "Hit a wall";
+    public ActionResult visit(Wall wall) {
+        return new ActionResult();
     }
 }

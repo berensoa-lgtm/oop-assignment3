@@ -1,5 +1,7 @@
 package entities;
 
+import level.EventManager;
+
 public class Monster extends Enemy{
     private int visionRange;
     public Monster(String name, int healthPool, int attack, int defend, int vision, int exp){
@@ -12,8 +14,4 @@ public class Monster extends Enemy{
         this.experienceValue = exp;
     }
 
-    @Override
-    String accept(OccupantVisitor occupantVisitor) {
-        return null;
-    }
 }

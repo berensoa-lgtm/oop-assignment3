@@ -22,8 +22,19 @@ public class GameBoard {
         Cell cell = getCell(p);
         cell.setOccupant(o);
     }
-    public void visitCell(Position p, Unit u, EventManager em){
+    public ActionResult visitCell(Position p, Unit u, EventManager em){
         Cell cell = getCell(p);
-        cell.accept(new CellVisitor(u), em);
+        return cell.accept(new CellVisitor(u), em);
+    }
+    public String toString(){
+        String s = "";
+        for (int a = 0; a < array.length; a++){
+            String row = "";
+            for (int b = 0; b < array[a].length; b++){
+                row += array[a][b].symbol;
+            }
+            s += row + "\n";
+        }
+        return s;
     }
 }

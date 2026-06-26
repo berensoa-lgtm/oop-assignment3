@@ -1,14 +1,16 @@
 package entities;
 
+import level.EventManager;
+
 public class OccupantVisitor {
     private Unit unit;
     public OccupantVisitor(Unit u){
         this.unit = u;
     }
-    public String visit(Enemy e){
-        return unit.initializeInteraction(e);
+    public ActionResult visit(Enemy e, EventManager em){
+        return unit.initializeInteraction(e, em);
     }
-    public String visit(Player p, EventManager em){
+    public ActionResult visit(Player p, EventManager em){
         return unit.initializeInteraction(p, em);
     }
 

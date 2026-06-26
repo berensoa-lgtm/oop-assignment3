@@ -11,7 +11,7 @@ public class Occupant {
         return unit;
     }
 
-    public String accept(OccupantVisitor occupantVisitor, EventManager em) {
+    public ActionResult accept(OccupantVisitor occupantVisitor, EventManager em) {
         return this.unit.accept(occupantVisitor, em);
     }
 }

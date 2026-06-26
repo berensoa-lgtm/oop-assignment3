@@ -1,6 +1,7 @@
 package level;
 
 import board.*;
+import entities.ActionResult;
 import entities.Occupant;
 import entities.Player;
 import game.GameUnits;
@@ -14,6 +15,7 @@ public class Business{
     public Business(GameBoard board, GameUnits units){
         this.board = board;
         this.units = units;
+        this.eventManager = new EventManager();
     }
     public void addListener(EventListener listener) {
         eventManager.addListener(listener);
@@ -33,7 +35,7 @@ public class Business{
     }
 
     public void userTurn(char c) {
-        Position userPosition = units.getPlayer().getPosition();
+        Position userPosition = units.getPlayer().getPos();
         Position toPosition = null;
         if (c == 'w')
             toPosition = userPosition.up();
@@ -43,7 +45,10 @@ public class Business{
             toPosition = userPosition.down();
         else if (c == 'd')
             toPosition = userPosition.right();
-        board.visitCell(toPosition, units.getPlayer(), eventManager);
+        ActionResult result = board.visitCell(toPosition, units.getPlayer(), eventManager);
     }
 
+    public GameBoard getBoard() {
+        return board;
+    }
 }

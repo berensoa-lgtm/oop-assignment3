@@ -1,6 +1,7 @@
 package entities;
 
 import board.Position;
+import level.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public abstract class Player extends Unit {
         //find the right way to get the list of all units
         List<Unit> allUnits = new ArrayList<>();  //for now allUnits is a placeHolder
         for (Unit enemy: allUnits){
-            double range = Range(this,enemy);
+            double range = InteractionUtils.range(pos, enemy.pos);
             if(range < abilityRange && range != 0)
                 list.add(enemy);
         }
@@ -42,20 +43,18 @@ public abstract class Player extends Unit {
         this.attackPoints += 4 * playerLevel;
         this.defensePoints += playerLevel;
     }
-    public String initializeInteraction(Enemy e){
+    @Override
+    public String initializeInteraction(Enemy e, EventManager em){
         return "nothing";
     }
 
-    public String initializeInteraction(Player p){
-        InteractionUtils.attack(this, p);
-        return "";
-    }
-    public void loseHealth(int dmg){
-        healthAmount -= dmg;
+    @Override
+    public ActionResult initializeInteraction(Player p, EventManager em){
+        return InteractionUtils.attack(this, p, em);
     }
     @Override
-    String accept(OccupantVisitor occupantVisitor, EventManager em) {
-        return null;
+    public ActionResult accept(OccupantVisitor occupantVisitor, EventManager em){
+        return occupantVisitor.visit(this, em);
     }
     @Override
     public String toString(){
@@ -63,5 +62,14 @@ public abstract class Player extends Unit {
         s+="Level: "+playerLevel+"   ";
         s+= "Experience: "+experience+"   ";
         return s;
+    }
+    @Override
+    public ActionResult loseHealth(int dmg){
+        healthAmount -= dmg;
+        ActionResult result = new ActionResult();
+        if (healthAmount <= 0){
+            result.playerKilled();
+        }
+        return result;
     }
 }
