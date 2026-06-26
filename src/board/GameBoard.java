@@ -1,6 +1,7 @@
 package board;
 
 import board.Cell;
+import entities.ActionResult;
 import entities.CellVisitor;
 import entities.Occupant;
 import entities.Unit;

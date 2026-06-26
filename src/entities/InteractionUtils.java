@@ -32,7 +32,9 @@ public class InteractionUtils {
             defender.loseHealth(damage - defense);
     }
 
-    public static double range(Position a, Position b){
-        return 0;
+    public static double range(Unit a, Unit b){
+        int disX = (int)(Math.pow((a.getPos().getX() - b.getPos().getX()),2));
+        int disY = (int)(Math.pow((a.getPos().getY() - b.getPos().getY()),2));
+        return Math.sqrt(disX + disY);
     }
 }
