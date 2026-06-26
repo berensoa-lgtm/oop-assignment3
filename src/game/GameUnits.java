@@ -9,12 +9,15 @@ public class GameUnits {
     public GameUnits(List<Unit> u, Player p){
         units = u;
     }
-    public gameTick(){
+    public void gameTick(){
         //prompt player turn
         //prompt enemy turn
         for (Unit u : units){
-            u.gameTick();
+            //u.gameTick();
         }
+    }
+    public Player getPlayer(){
+        return player;
     }
 
 }

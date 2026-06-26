@@ -1,6 +1,7 @@
 package level;
 
 import board.GameBoard;
+import board.BoardUtils;
 import game.GameUnits;
 
 public class Business {
@@ -11,12 +12,12 @@ public class Business {
         this.units = units;
     }
     public String stringBoard(){
-        return BoardUtils.BoardToString(board);
+        return BoardUtils.boardToString(board);
     }
     public String stringPlayer(){
-        return UnitUtils.PlayerToString(units.getPlayer());
+        return units.getPlayer().toString();
     }
     public void enemiesTurn(){
-        units.
+
     }
 }

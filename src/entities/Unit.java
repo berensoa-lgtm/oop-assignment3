@@ -11,4 +11,11 @@ public abstract class Unit {
     abstract void loseHealth(int damage);
 
     abstract String accept(OccupantVisitor occupantVisitor);
+
+    protected void initializeProperties(int health, int attack, int defense) {
+        this.attackPoints = attack;
+        this.healthPool = health;
+        this.healthAmount = health;
+        this.defensePoints = defense;
+    }
 }

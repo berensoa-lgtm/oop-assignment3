@@ -1,7 +1,7 @@
-import Service.LevelService;
 import board.BoardFactory;
 import board.GameBoard;
 import entities.Unit;
+import game.GameService;
 import game.GameUnits;
 
 import java.io.IOException;
@@ -25,10 +25,12 @@ public class Main {
             System.out.println("Reading file: " + levelFilePath.toAbsolutePath());
 
             List<String> lines = Files.readAllLines(levelFilePath);
-            List<Unit> units = new ArrayList<>();
-            GameBoard board = new GameBoard(BoardFactory.createCells(lines, units, player));
-            GameUnits un = new GameUnits(units, player);
-            LevelService l = new LevelService(board, un);
+
+            List<List<String>> levels = new ArrayList<>();
+            levels.add(lines);
+            GameService GAME = new GameService(levels);
+
+            GAME.startGame();
 
         } catch(Exception e){
             System.out.println("EXCEPTION: " + e);

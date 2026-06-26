@@ -8,23 +8,17 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class PlayerFactory {
-    private static final Map<Character, Supplier<Cell>> players =
+    private static final Map<Character, Supplier<Player>> players =
             Map.ofEntries(
-                    Map.entry('1', Wall::new),
-                    Map.entry('2', Floor::new),
-                    Map.entry('3', () -> new Floor(new Monster("Golden Cloak", 80, 8, 3, 3, 25))),
-                    Map.entry('k', () -> new Floor(new Monster("Knight", 200, 14, 8, 4, 50))),
-                    Map.entry('q', () -> new Floor(new Monster("Queen's Guard", 400, 20, 15, 5, 100))),
-                    Map.entry('z', () -> new Floor(new Monster("Wright", 600, 30, 15, 3, 100))),
-                    Map.entry('b', () -> new Floor(new Monster("Bear", 1000, 75, 30, 4, 250))),
-                    Map.entry('g', () -> new Floor(new Monster("Giant", 1500, 100, 40, 5, 500))),
-                    Map.entry('w', () -> new Floor(new Monster("White Walker", 2000, 150, 50, 6, 1000))),
-                    Map.entry('M', () -> new Floor(new Monster("The Mountain", 1000, 60, 25, 6, 500))),
-                    Map.entry('C', () -> new Floor(new Monster("Queen Cersei", 100, 10, 10, 1, 1000))),
-                    Map.entry('K', () -> new Floor(new Monster("Night's King", 5000, 300, 150, 8, 5000))),
-
-                    Map.entry('B', () -> new Floor(new Trap("Bonus", 1, 1, 1, 250, 1, 5))),
-                    Map.entry('Q', () -> new Floor(new Trap("Queen's Trap", 250, 50, 10, 100, 3, 7))),
-                    Map.entry('D', () -> new Floor(new Trap("Death Trap", 500, 100, 20, 250, 1, 10)))
+                    Map.entry('1', () -> new Warrior("Jon Snow", 300, 30, 4, 3)),
+                    Map.entry('2', () -> new Warrior("The Hound", 400, 20, 6, 5)),
+                    Map.entry('3', () -> new Mage("Melisandre", 100, 5, 1, 300, 30, 15, 5, 6)),
+                    Map.entry('4', () -> new Mage("Thoros of Myr", 250, 25, 4, 150, 20, 20, 3, 4)),
+                    Map.entry('5', () -> new Rogue("Arya Stark", 150, 40, 2, 20)),
+                    Map.entry('6', () -> new Rogue("Bronn", 250, 35, 3, 50))
             );
+    public static Player createPlayer(char c){
+        Supplier<Player> supplier = players.get(c);
+        return supplier.get();
+    }
 }

@@ -2,12 +2,13 @@ package board;
 
 import entities.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public class BoardFactory {
-    private static final Map<Character, Supplier<Cell>> creators =
+    private static final Map<Character, Supplier<Cell>> BASE_CREATORS =
             Map.ofEntries(
                     Map.entry('#', Wall::new),
                     Map.entry('.', Floor::new),
@@ -26,8 +27,11 @@ public class BoardFactory {
                     Map.entry('Q', () -> new Floor(new Trap("Queen's Trap", 250, 50, 10, 100, 3, 7))),
                     Map.entry('D', () -> new Floor(new Trap("Death Trap", 500, 100, 20, 250, 1, 10)))
             );
-    public static Cell[][] createCells(List<String> lines, List<Unit> units){
+    public static Cell[][] createCells(List<String> lines, List<Unit> units, Player player){
         Cell[][] cells = new Cell[lines.size()][lines.get(0).length()];
+        Map<Character, Supplier<Cell>> creators = new HashMap<>(BASE_CREATORS);
+        creators.put('@', () -> new Floor(player));
+
         for (int row = 0; row < lines.size(); row++){
 
             String l = lines.get(row);
@@ -38,9 +42,10 @@ public class BoardFactory {
                 if (supplier == null) {
                     supplier = Floor::new;
                 }
-                cells[row][i] = supplier.get();
-                Occupant occupant = supplier.get().getOccupant();
-                if (occupant != null) {
+                Cell cell = supplier.get();
+                cells[row][i] = cell;
+                Occupant occupant = cell.getOccupant();
+                if (occupant != null && !occupant.getUnit().equals(player)) {
                     Unit unit = occupant.getUnit();
                     units.add(unit);
                 }
