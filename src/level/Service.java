@@ -2,6 +2,7 @@ package level;
 
 import board.BoardFactory;
 import board.GameBoard;
+import entities.Enemy;
 import entities.Player;
 import entities.Unit;
 import game.GameUnits;
@@ -15,7 +16,7 @@ public class Service{
     private CLI cli;
 
     public Service (List<String> lines, Player player){
-        List<Unit> enemies = new ArrayList<>();
+        List<Enemy> enemies = new ArrayList<>();
         GameBoard board = new GameBoard(BoardFactory.createCells(lines, enemies, player));
         GameUnits gameUnits = new GameUnits(enemies, player);
         this.b = new Business(board, gameUnits);

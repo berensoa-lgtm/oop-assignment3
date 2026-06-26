@@ -25,4 +25,6 @@ public abstract class Enemy extends Unit {
     public ActionResult accept(OccupantVisitor occupantVisitor, EventManager em){
         return occupantVisitor.visit(this, em);
     }
+
+    public abstract ActionResult turn(Player player);
 }

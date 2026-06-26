@@ -12,7 +12,7 @@ public abstract class Cell {
     public void setSymbol(char c) {
         symbol = c;
     }
-    public char getSymbol(char c){
+    public char getSymbol(){
         return symbol;
     }
     abstract ActionResult accept(CellVisitor v, EventManager em);

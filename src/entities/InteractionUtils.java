@@ -6,10 +6,7 @@ import level.EventManager;
 import java.util.Random;
 
 public class InteractionUtils {
-    private static Random rand;
-    public InteractionUtils(){
-        rand = new Random();
-    }
+    private static final Random rand = new Random();
     public static ActionResult attack(Unit attacker, Unit defender, EventManager em){
         em.publish(attacker.name+"engaged in combat with "+defender.name);
         em.publish(attacker.toString());
@@ -17,7 +14,7 @@ public class InteractionUtils {
         int attackVal = rand.nextInt(0, attacker.attackPoints);
         int defendVal = rand.nextInt(0, defender.defensePoints);
         em.publish(attacker.name+" rolled "+attackVal+" attack points.");
-        em.publish(defender.name+" rolled "+defendVal+" attack points.");
+        em.publish(defender.name+" rolled "+defendVal+" defense points.");
         if (attackVal > defendVal) {
             int dmg = attackVal - defendVal;
             em.publish(attacker.name+" dealt "+dmg+" damage to "+defender.name);

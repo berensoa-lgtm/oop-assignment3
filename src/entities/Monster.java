@@ -14,4 +14,9 @@ public class Monster extends Enemy{
         this.experienceValue = exp;
     }
 
+    @Override
+    public ActionResult turn(Player player) {
+        // up to enemy implementation
+        return null;
+    }
 }

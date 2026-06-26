@@ -27,7 +27,7 @@ public class BoardFactory {
                     Map.entry('Q', () -> new Floor(new Trap("Queen's Trap", 250, 50, 10, 100, 3, 7))),
                     Map.entry('D', () -> new Floor(new Trap("Death Trap", 500, 100, 20, 250, 1, 10)))
             );
-    public static Cell[][] createCells(List<String> lines, List<Unit> enemies, Player player){
+    public static Cell[][] createCells(List<String> lines, List<Enemy> enemies, Player player){
         Cell[][] cells = new Cell[lines.size()][lines.get(0).length()];
         Map<Character, Supplier<Cell>> creators = new HashMap<>(BASE_CREATORS);
         creators.put('@', () -> new Floor(player));
@@ -49,7 +49,7 @@ public class BoardFactory {
                 if (occupant != null) {
                     Unit unit = occupant.getUnit();
                     if (!occupant.getUnit().equals(player)){
-                        enemies.add(unit);
+                        enemies.add((Enemy) unit);
                     }
                     unit.setPos(new Position(i, row));
                 }
