@@ -11,10 +11,9 @@ public class GameUnits {
         player = p;
     }
     public void gameTick(){
-        //prompt player turn
-        //prompt enemy turn
+
         for (Unit u : units){
-            //u.gameTick();
+           // u.gameTick();
         }
     }
     public Player getPlayer(){

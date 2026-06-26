@@ -20,4 +20,7 @@ public class Business {
     public void enemiesTurn(){
 
     }
+    public void gameTick(){
+        units.gameTick();
+    }
 }
