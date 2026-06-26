@@ -31,8 +31,8 @@ public abstract class Player extends Unit {
         this.defensePoints += playerLevel;
     }
     @Override
-    public String initializeInteraction(Enemy e, EventManager em){
-        return "nothing";
+    public ActionResult initializeInteraction(Enemy e, EventManager em){
+        //not yet implemented;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class Business{
             toPosition = userPosition.down();
         else if (c == 'd')
             toPosition = userPosition.right();
-        ActionResult result = board.visitCell(toPosition, units.getPlayer(), eventManager);
+        ActionResult result = (board.visitCell(toPosition, units.getPlayer(), eventManager));
     }
 
     public GameBoard getBoard() {
