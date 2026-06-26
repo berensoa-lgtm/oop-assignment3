@@ -32,12 +32,12 @@ public abstract class Player extends Unit {
     }
     @Override
     public ActionResult initializeInteraction(Enemy e, EventManager em){
-        //not yet implemented;
+        return InteractionUtils.attack(this, e, em);
     }
 
     @Override
     public ActionResult initializeInteraction(Player p, EventManager em){
-        return InteractionUtils.attack(this, p, em);
+        return new ActionResult();
     }
     @Override
     public ActionResult accept(OccupantVisitor occupantVisitor, EventManager em){

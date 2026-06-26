@@ -29,4 +29,18 @@ public class Floor extends Cell{
     public void setOccupant(Occupant occupant) {
         this.occupant = occupant;
     }
+    @Override
+    public void setSymbol(char c){
+        if (occupant != null)
+            occupant.setSymbol(c);
+        else
+            super.setSymbol(c);
+    }
+    @Override
+    public char getSymbol(){
+        if (occupant != null)
+            return occupant.getSymbol();
+        else
+            return super.getSymbol();
+    }
 }

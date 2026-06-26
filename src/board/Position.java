@@ -14,7 +14,7 @@ public class Position {
         return y;
     }
     public Position up(){
-        return new Position(x, y+1);
+        return new Position(x, y-1);
     }
     public Position left(){
         return new Position(x-1, y);
@@ -23,6 +23,6 @@ public class Position {
         return new Position(x+1, y);
     }
     public Position down(){
-        return new Position(x, y-1);
+        return new Position(x, y+1);
     }
 }

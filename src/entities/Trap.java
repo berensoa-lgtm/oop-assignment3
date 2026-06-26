@@ -18,4 +18,9 @@ public class Trap extends Enemy{
         this.healthAmount = health;
         this.healthPool = health;
     }
+
+    @Override
+    public ActionResult turn(Player player) {
+        return null;
+    }
 }

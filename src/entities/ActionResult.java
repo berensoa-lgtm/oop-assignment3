@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ActionResult {
@@ -29,5 +30,12 @@ public class ActionResult {
 
     public void playerKilled() {
         playerDied = true;
+    }
+    public boolean getMoved(){
+        return moved;
+    }
+
+    public List<Enemy> getEnemiesKilled() {
+        return killedEnemies;
     }
 }
