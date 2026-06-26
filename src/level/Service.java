@@ -43,9 +43,11 @@ public class Service{
         b.userTurn(c);
         return input;
     }
+
     public void enemiesTurn(){
         b.enemiesTurn();
     }
+
     public void gameTick(){
         //b.gameTick();
     }

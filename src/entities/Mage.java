@@ -1,26 +1,24 @@
 package entities;
 
+import java.util.List;
+import java.util.Random;
+
 public class Mage extends Player{
     private int manaPool;
-    private int manaCost;
     private int currentMana;
+    private int manaCost;
     private int spellPower;
     private int hitsCount;
     private int abilityRange;
 
     public Mage(String name, int health, int attack, int defense, int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange){
-        super.initializeProperties(health, attack, defense);
-        this.healthAmount = health;
-        this.healthPool = health;
-        this.attackPoints = attack;
-        this.defensePoints = defense;
+        super.initializeProperties(health, attack, defense, name);
         this.manaPool = manaPool;
         this.currentMana = manaPool / 4;
         this.manaCost = manaCost;
         this.spellPower = spellPower;
         this.hitsCount = hitsCount;
         this.abilityRange = abilityRange;
-        this.name = name;
     }
     @Override
     public void gameTick(){
@@ -28,22 +26,21 @@ public class Mage extends Player{
     }
 
     @Override
-    public void cast() {
+    public void cast(List<Unit> inRangeEnemies) {
+        Random rnd = new Random();
+        boolean enemiesExist = true;
         if(currentMana < manaCost){
-            //write a message telling him he can't cast his ability?
+            System.out.println("can't cast special ability: you don't have enough mana");
         }
         else {
             currentMana -= manaCost;
             int hits = 0;
-            while(hits < hitsCount && livingEnemyInRange())
+            while(hits < hitsCount && !inRangeEnemies.isEmpty())
             {
+                int index = rnd.nextInt(inRangeEnemies.size());
+                InteractionUtils.specialAbilityAttack(inRangeEnemies.get(index),spellPower);
             }
-
         }
-    }
-
-    private boolean livingEnemyInRange(){ //the functions checks if there's still a living enemy in range for the special ability to hit
-        return false;
     }
 
     @Override

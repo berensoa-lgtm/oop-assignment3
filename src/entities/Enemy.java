@@ -2,6 +2,7 @@ package entities;
 
 public abstract class Enemy extends Unit {
     protected int experienceValue;
+
     public String initializeInteraction(Enemy e){
         return "nothing";
     }
@@ -10,6 +11,6 @@ public abstract class Enemy extends Unit {
         return "";
     }
     public void loseHealth(int dmg){
-        healthAmount =- dmg;
+        healthAmount -= dmg;
     }
 }

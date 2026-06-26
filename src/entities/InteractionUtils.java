@@ -23,4 +23,10 @@ public class InteractionUtils {
             defender.loseHealth(dmg);
         }
     }
+
+    public static void specialAbilityAttack(Unit defender, int damage){
+        int defense = rand.nextInt(0, defender.defensePoints);
+        if(damage > defense)
+            defender.loseHealth(damage - defense);
+    }
 }
