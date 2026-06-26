@@ -1,14 +1,42 @@
 package entities;
 
+import board.Position;
+import level.EventManager;
+
 public abstract class Unit {
     protected String name;
     protected int healthPool;
     protected int healthAmount;
     protected int attackPoints;
     protected int defensePoints;
-    abstract String initializeInteraction(Enemy e);
-    abstract String initializeInteraction(Player p);
-    abstract void loseHealth(int damage);
+    protected Position pos;
 
-    abstract String accept(OccupantVisitor occupantVisitor);
+    abstract ActionResult initializeInteraction(Enemy e, EventManager em);
+    abstract ActionResult initializeInteraction(Player p, EventManager em);
+
+    abstract ActionResult loseHealth(int damage);
+
+    abstract ActionResult accept(OccupantVisitor occupantVisitor, EventManager em);
+
+    protected void initializeProperties(int health, int attack, int defense) {
+        this.attackPoints = attack;
+        this.healthPool = health;
+        this.healthAmount = health;
+        this.defensePoints = defense;
+    }
+    public Position getPos(){
+        return pos;
+    }
+    public void setPos(Position p){
+        this.pos = p;
+    }
+    public String toString(){
+        String s = "";
+        s += name + "   ";
+        s += "Health: "+healthAmount+"/"+healthPool+"   ";
+        s+= "Attack: "+attackPoints+"   ";
+        s+= "Defense: "+defensePoints+"   ";
+        return s;
+    }
+
 }

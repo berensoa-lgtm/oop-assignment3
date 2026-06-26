@@ -1,5 +1,7 @@
 package entities;
 
+import level.EventManager;
+
 public class Occupant {
     private Unit unit;
     public Occupant(Unit u){
@@ -9,7 +11,7 @@ public class Occupant {
         return unit;
     }
 
-    public String accept(OccupantVisitor occupantVisitor) {
-        return this.unit.accept(occupantVisitor);
+    public ActionResult accept(OccupantVisitor occupantVisitor, EventManager em) {
+        return this.unit.accept(occupantVisitor, em);
     }
 }

@@ -1,15 +1,28 @@
 package entities;
 
+import level.EventManager;
+
 public abstract class Enemy extends Unit {
-    private int experienceValue;
-    public String initializeInteraction(Enemy e){
-        return "nothing";
+    protected int experienceValue;
+
+    @Override
+    public ActionResult initializeInteraction(Enemy e, EventManager em){
+        return new ActionResult();
     }
-    public String initializeInteraction(Player p){
-        InteractionUtils.attack(this, p);
-        return "";
+    @Override
+    public ActionResult initializeInteraction(Player p, EventManager em){
+        return InteractionUtils.attack(this, p, em);
     }
-    public void loseHealth(int dmg){
-        healthAmount =- dmg;
+    public ActionResult loseHealth(int dmg){
+        healthAmount -= dmg;
+        ActionResult result = new ActionResult();
+        if (healthAmount <= 0){
+            result.killedEnemy(this);
+        }
+        return result;
+    }
+    @Override
+    public ActionResult accept(OccupantVisitor occupantVisitor, EventManager em){
+        return occupantVisitor.visit(this, em);
     }
 }

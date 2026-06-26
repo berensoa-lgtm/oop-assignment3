@@ -1,24 +1,75 @@
 package entities;
 
-public abstract class Player extends Unit {
-    private int experience;
-    protected int playerLevel;
-    public abstract void cast();
-    public abstract void levelUp();
-    protected void levelUpPlayer(){
+import board.Position;
+import level.EventManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Player extends Unit {
+    protected int experience;
+    protected int playerLevel;
+
+    public abstract void cast(List<Unit> inRangeEnemies);
+    public abstract void levelUp();
+    public abstract void gameTick();
+
+    protected List<Unit> inRangeEnemies(int abilityRange){
+        List<Unit> list = new ArrayList<>();
+        //find the right way to get the list of all units
+        List<Unit> allUnits = new ArrayList<>();  //for now allUnits is a placeHolder
+        for (Unit enemy: allUnits){
+            double range = InteractionUtils.range(pos, enemy.pos);
+            if(range < abilityRange && range != 0)
+                list.add(enemy);
+        }
+        return list;
     }
-    public String accept(OccupantVisitor occupantVisitor){
-        return occupantVisitor.visit(this);
+
+
+
+    protected void initializeProperties(int health, int attack, int defense, String name){
+        super.initializeProperties(health, attack, defense);
+        this.experience = 0;
+        this.playerLevel = 1;
+        this.name = name;
     }
-    public String initializeInteraction(Enemy e){
-        InteractionUtils.attack(this, e);
-        return "";
+
+    protected void levelUpPlayer(){
+        this.experience = experience - (50 * playerLevel);
+        this.playerLevel += 1;
+        this.healthPool += 10 * playerLevel;
+        this.healthAmount = healthPool;
+        this.attackPoints += 4 * playerLevel;
+        this.defensePoints += playerLevel;
     }
-    public String initializeInteraction(Player p){
+    @Override
+    public String initializeInteraction(Enemy e, EventManager em){
         return "nothing";
     }
-    public void loseHealth(int dmg){
-        healthAmount =- dmg;
+
+    @Override
+    public ActionResult initializeInteraction(Player p, EventManager em){
+        return InteractionUtils.attack(this, p, em);
+    }
+    @Override
+    public ActionResult accept(OccupantVisitor occupantVisitor, EventManager em){
+        return occupantVisitor.visit(this, em);
+    }
+    @Override
+    public String toString(){
+        String s = super.toString();
+        s+="Level: "+playerLevel+"   ";
+        s+= "Experience: "+experience+"   ";
+        return s;
+    }
+    @Override
+    public ActionResult loseHealth(int dmg){
+        healthAmount -= dmg;
+        ActionResult result = new ActionResult();
+        if (healthAmount <= 0){
+            result.playerKilled();
+        }
+        return result;
     }
 }

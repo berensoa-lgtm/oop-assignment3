@@ -1,10 +1,34 @@
 package entities;
 
-public class Rogue extends Player {
+import java.util.List;
+
+public class Rogue extends Player{
     private int cost;
     private int currentEnergy;
+    private int energyPool;
+
+    public Rogue(String name, int health, int attack, int defense, int cost){
+        super.initializeProperties(health, attack, defense, name);
+        this.cost = cost;
+        this.currentEnergy = 100;
+        this.energyPool = 100;
+    }
+
     @Override
-    public void cast() {
+    public void cast(List<Unit> inRangeEnemies) {
+        if(currentEnergy < cost){
+            System.out.println("can't cast special ability: you don't have enough energy");
+        }
+        else {
+            currentEnergy -= cost;
+            for(Unit enemy: inRangeEnemies){
+                InteractionUtils.specialAbilityAttack(enemy,attackPoints);
+            }
+        }
+    }
+
+    @Override
+    public void gameTick(){
 
     }
 
@@ -13,5 +37,11 @@ public class Rogue extends Player {
         super.levelUpPlayer();
         currentEnergy = 100;
         attackPoints += (3 * playerLevel);
+    }
+    @Override
+    public String toString(){
+        String s = super.toString();
+        s+="Energy: "+currentEnergy+"/"+energyPool+"   ";
+        return s;
     }
 }

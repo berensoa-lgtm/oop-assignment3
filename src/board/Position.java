@@ -7,11 +7,22 @@ public class Position {
         this.x = x;
         this.y = y;
     }
-
-    public int getY() {
+    public int getX(){
+        return x;
+    }
+    public int getY(){
         return y;
     }
-    public int getX() {
-        return x;
+    public Position up(){
+        return new Position(x, y+1);
+    }
+    public Position left(){
+        return new Position(x-1, y);
+    }
+    public Position right(){
+        return new Position(x+1, y);
+    }
+    public Position down(){
+        return new Position(x, y-1);
     }
 }
