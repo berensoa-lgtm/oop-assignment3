@@ -22,13 +22,12 @@ public class Mage extends Player{
     }
     @Override
     public void gameTick(){
-
+        currentMana = Math.min(currentMana + playerLevel, manaPool);
     }
 
     @Override
     public void cast(List<Unit> inRangeEnemies) {
         Random rnd = new Random();
-        boolean enemiesExist = true;
         if(currentMana < manaCost){
             System.out.println("can't cast special ability: you don't have enough mana");
         }

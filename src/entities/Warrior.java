@@ -30,7 +30,7 @@ public class Warrior extends Player{
 
     @Override
     public void gameTick(){
-
+        remainingCooldown -= 1;
     }
 
     @Override
