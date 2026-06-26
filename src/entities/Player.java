@@ -14,19 +14,6 @@ public abstract class Player extends Unit {
     public abstract void levelUp();
     public abstract void gameTick();
 
-    protected List<Unit> inRangeEnemies(int abilityRange){
-        List<Unit> list = new ArrayList<>();
-        //find the right way to get the list of all units
-        List<Unit> allUnits = new ArrayList<>();  //for now allUnits is a placeHolder
-        for (Unit enemy: allUnits){
-            double range = InteractionUtils.range(pos, enemy.pos);
-            if(range < abilityRange && range != 0)
-                list.add(enemy);
-        }
-        return list;
-    }
-
-
 
     protected void initializeProperties(int health, int attack, int defense, String name){
         super.initializeProperties(health, attack, defense);
