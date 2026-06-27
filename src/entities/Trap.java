@@ -1,5 +1,10 @@
 package entities;
 
+import board.Position;
+import level.EventManager;
+
+import static entities.InteractionUtils.attack;
+
 public class Trap extends Enemy{
     private int visTime;
     private int invisTime;
@@ -7,20 +12,27 @@ public class Trap extends Enemy{
     private boolean visible;
 
     public Trap(String name, int health, int attack, int defense, int exp, int visibilityTime, int invisibilityTime){
+        super.initializeEnemyProperties(health, attack, defense, name, exp);
         this.visTime = visibilityTime;
         this.invisTime = invisibilityTime;
         this.tickCount = 0;
         this.visible = true;
-        this.name = name;
-        this.attackPoints = attack;
-        this.defensePoints = defense;
-        this.experienceValue = exp;
-        this.healthAmount = health;
-        this.healthPool = health;
+
     }
 
     @Override
-    public ActionResult turn(Player player) {
-        return null;
+    public void gameTick() {
+        tickCount += 1;
+        if(tickCount == visTime && visible || tickCount == invisTime && !visible){
+            visible = !visible;
+            tickCount = 0;
+        }
+    }
+
+    @Override
+    public Position turn(Player player, EventManager em) {
+        if (InteractionUtils.range(this,player) < 2)
+            attack(this, player, em);
+        return pos;
     }
 }

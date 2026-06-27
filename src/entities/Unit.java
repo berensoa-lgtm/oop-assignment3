@@ -13,16 +13,18 @@ public abstract class Unit {
 
     abstract ActionResult initializeInteraction(Enemy e, EventManager em);
     abstract ActionResult initializeInteraction(Player p, EventManager em);
+    public abstract void gameTick();
 
     abstract ActionResult loseHealth(int damage);
 
     abstract ActionResult accept(OccupantVisitor occupantVisitor, EventManager em);
 
-    protected void initializeProperties(int health, int attack, int defense) {
+    protected void initializeProperties(int health, int attack, int defense, String name) {
         this.attackPoints = attack;
         this.healthPool = health;
         this.healthAmount = health;
         this.defensePoints = defense;
+        this.name = name;
     }
     public Position getPos(){
         return pos;
