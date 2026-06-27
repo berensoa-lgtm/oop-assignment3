@@ -7,10 +7,9 @@ public class CLI implements EventListener {
     public void onEvent(String message) {
         System.out.println(message);
     }
-    public void printBoard(String s){
+    public void print(String s){
         System.out.println(s);
     }
-    public void printPlayer(String s){
-        System.out.println(s);
-    }
+    public void printWin(){System.out.println("You won!");}
+    public void printLose(){System.out.println("Game Over");}
 }

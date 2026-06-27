@@ -2,6 +2,7 @@ package game;
 
 import board.BoardFactory;
 import board.GameBoard;
+import entities.Enemy;
 import entities.Player;
 import entities.PlayerFactory;
 import entities.Unit;
@@ -12,9 +13,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GameService {
-    private Service level;
-    private Scanner scanner;
-    private List<List<String>> levels;
+    private Player player;
+    private int currentLevel;
+    private final Scanner scanner;
+    private final ArrayList<List<String>> levels;
+    private final BoardFactory boardFactory;
     private final String selectPlayer = """
             Select player:
             1. Jon Snow             Health: 300/300         Attack: 30              Defense: 4              Level: 1                Experience: 0/50                Cooldown: 0/3
@@ -24,12 +27,12 @@ public class GameService {
             5. Arya Stark           Health: 150/150         Attack: 40              Defense: 2              Level: 1                Experience: 0/50                Energy: 100/100
             6. Bronn                Health: 250/250         Attack: 35              Defense: 3              Level: 1    \s
             """;
-    public GameService(List<List<String>> levels){
+    public GameService(ArrayList<List<String>> levels){
         this.levels = levels;
         this.scanner = new Scanner(System.in);
-        Player player = initializePlayer();
-        Service l = new Service(levels.get(0), player);
-        this.level = l;
+        this.boardFactory = new BoardFactory();
+        this.currentLevel = 0;
+        this.player = null;
     }
     public Player initializePlayer(){
         System.out.println(selectPlayer);
@@ -38,6 +41,15 @@ public class GameService {
         return PlayerFactory.createPlayer(c);
     }
     public void startGame(){
+        this.player = initializePlayer();
+        nextLevel();
+    }
+    private void nextLevel(){
+        List<String> boardInString = levels.get(currentLevel);
+        List<Enemy> enemies = new ArrayList<>();
+        GameBoard board = boardFactory.createCells(boardInString, enemies, player);
+        GameUnits gameUnits = new GameUnits(enemies, player);
+        Service level = new Service(board, gameUnits);
         level.level(scanner);
     }
 }

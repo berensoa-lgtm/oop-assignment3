@@ -14,7 +14,7 @@ public abstract class Unit {
     abstract ActionResult initializeInteraction(Enemy e, EventManager em);
     abstract ActionResult initializeInteraction(Player p, EventManager em);
 
-    abstract ActionResult loseHealth(int damage);
+    abstract ActionResult loseHealth(int damage, EventManager em);
 
     abstract ActionResult accept(OccupantVisitor occupantVisitor, EventManager em);
 

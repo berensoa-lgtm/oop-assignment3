@@ -18,7 +18,7 @@ public class InteractionUtils {
         if (attackVal > defendVal) {
             int dmg = attackVal - defendVal;
             em.publish(attacker.name+" dealt "+dmg+" damage to "+defender.name);
-            return defender.loseHealth(dmg);
+            return defender.loseHealth(dmg, em);
         }
         return new ActionResult();
     }
@@ -26,7 +26,7 @@ public class InteractionUtils {
     public static void specialAbilityAttack(Unit defender, int damage){
         int defense = rand.nextInt(0, defender.defensePoints);
         if(damage > defense)
-            defender.loseHealth(damage - defense);
+            defender.loseHealth(damage - defense, em);
     }
 
     public static double range(Unit a, Unit b){

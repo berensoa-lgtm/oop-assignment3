@@ -51,11 +51,12 @@ public abstract class Player extends Unit {
         return s;
     }
     @Override
-    public ActionResult loseHealth(int dmg){
+    public ActionResult loseHealth(int dmg, EventManager em){
         healthAmount -= dmg;
         ActionResult result = new ActionResult();
         if (healthAmount <= 0){
             result.playerKilled();
+            em.publish("You lost.");
         }
         return result;
     }
