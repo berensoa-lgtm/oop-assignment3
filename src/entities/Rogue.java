@@ -17,21 +17,23 @@ public class Rogue extends Player{
     }
 
     @Override
-    public ActionResult cast(List<Enemy> inRangeEnemies, EventManager em) {
+    public ActionResult cast(List<Enemy> lst, EventManager em) {
         if(currentEnergy < cost){
             em.publish("can't cast special ability: you don't have enough energy");
             return new ActionResult();
         }
         else {
+            List<Enemy> inRange = inRangeEnemies(lst);
             ActionResult result = new ActionResult();
             currentEnergy -= cost;
-            for(Unit enemy: inRangeEnemies){
+            for(Unit enemy: inRange){
                 ActionResult hit = InteractionUtils.specialAbilityAttack(this, enemy, attackPoints, em);
                 result.killedEnemies(hit.getEnemiesKilled());
             }
             return result;
         }
     }
+
 
     @Override
     public void gameTick(){

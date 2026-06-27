@@ -26,20 +26,21 @@ public class Mage extends Player{
     }
 
     @Override
-    public ActionResult cast(List<Enemy> inRangeEnemies, EventManager em) {
+    public ActionResult cast(List<Enemy> lst, EventManager em) {
         Random rnd = new Random();
         if(currentMana < manaCost){
             em.publish("can't cast special ability: you don't have enough mana");
             return new ActionResult();
         }
         else {
+            List<Enemy> inRange = inRangeEnemies(lst);
             currentMana -= manaCost;
             int hits = 0;
             ActionResult result = new ActionResult();
-            while(hits < hitsCount && !inRangeEnemies.isEmpty())
+            while(hits < hitsCount && !inRange.isEmpty())
             {
-                int index = rnd.nextInt(inRangeEnemies.size());
-                ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRangeEnemies.get(index),spellPower, em);
+                int index = rnd.nextInt(inRange.size());
+                ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRange.get(index),spellPower, em);
                 result.killedEnemies(hit.getEnemiesKilled());
             }
             return result;

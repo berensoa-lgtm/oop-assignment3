@@ -11,9 +11,9 @@ public class GameUnits {
         player = p;
     }
     public void gameTick(){
-
+        player.gameTick();
         for (Unit u : enemies){
-           // u.gameTick();
+           u.gameTick();
         }
     }
     public Player getPlayer(){

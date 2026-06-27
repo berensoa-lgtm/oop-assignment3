@@ -15,20 +15,22 @@ public class Warrior extends Player{
         this.remainingCooldown = 0;
     }
     @Override
-    public ActionResult cast(List<Enemy> inRangeEnemies, EventManager em) {
+    public ActionResult cast(List<Enemy> lst, EventManager em) {
         Random rnd = new Random();
         if(remainingCooldown > 0) {
             em.publish("can't cast special ability: cooldown isn't over");
             return new ActionResult();
         }
         else {
+            List<Enemy> inRange = inRangeEnemies(lst);
             int newHealth = Math.min(healthPool, healthAmount + (10 * defensePoints));
-            em.publish(name+"used Avenger's Shield, healing for "+(newHealth - healthAmount));
+            em.publish(name+" used Avenger's Shield, healing for "+(newHealth - healthAmount));
             healthAmount = newHealth;
             ActionResult result = new ActionResult();
-            if(inRangeEnemies.size() > 0){
-                int index = rnd.nextInt(inRangeEnemies.size());
-                ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRangeEnemies.get(index),(int)(healthPool * 0.1), em);
+            if(!inRange.isEmpty()){
+                //need to fix it: it can choose a trap in this current state
+                int index = rnd.nextInt(inRange.size());
+                ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRange.get(index),(int)(healthPool * 0.1), em);
                 result.killedEnemies(hit.getEnemiesKilled());
             }
             remainingCooldown = abilityCooldown;

@@ -35,6 +35,14 @@ public abstract class Player extends Unit {
     public ActionResult initializeInteraction(Enemy e, EventManager em){
         return InteractionUtils.attack(this, e, em);
     }
+    protected List<Enemy> inRangeEnemies (List<Enemy> enemyList){
+        List<Enemy> lst = new ArrayList<>();
+        for(Enemy e: enemyList){
+            if(InteractionUtils.range(this,e) < abilityRange)
+                lst.add(e);
+        }
+        return lst;
+    }
 
     @Override
     public ActionResult initializeInteraction(Player p, EventManager em){

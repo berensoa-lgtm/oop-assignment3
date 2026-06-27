@@ -39,6 +39,8 @@ public class Business{
         if (c == 'e'){
             result = player.cast(units.getEnemies(), eventManager);
         } else{
+            if(c == 'q')
+                toPosition = userPosition;
             if (c == 'w')
                 toPosition = userPosition.up();
             else if (c == 'a')

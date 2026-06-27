@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class InteractionUtils {
     private static final Random rand = new Random();
+
     public static ActionResult attack(Unit attacker, Unit defender, EventManager em){
         em.publish(attacker.name+"engaged in combat with "+defender.name);
         em.publish(attacker.toString());
@@ -17,7 +18,7 @@ public class InteractionUtils {
         em.publish(defender.name+" rolled "+defendVal+" defense points.");
         if (attackVal > defendVal) {
             int dmg = attackVal - defendVal;
-            em.publish(attacker.name+" dealt "+dmg+" damage to "+defender.name);
+            em.publish(attacker.name+" dealt "+ dmg +" damage to "+defender.name);
             return defender.loseHealth(dmg, em);
         }
         return new ActionResult();
@@ -27,7 +28,7 @@ public class InteractionUtils {
         int defense = rand.nextInt(0, defender.defensePoints);
         em.publish(defender.name+" rolled "+defense+" defense points.");
         if(damage > defense){
-            em.publish(attacker.name+" dealt "+damage+" damage to "+defender.name);
+            em.publish(attacker.name+" dealt "+ (damage - defense) +" damage to "+defender.name);
             return defender.loseHealth(damage - defense, em);
         }
         return new ActionResult();
