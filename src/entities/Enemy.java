@@ -13,7 +13,7 @@ public abstract class Enemy extends Unit {
     public ActionResult initializeInteraction(Player p, EventManager em){
         return InteractionUtils.attack(this, p, em);
     }
-    public ActionResult loseHealth(int dmg){
+    public ActionResult loseHealth(int dmg, EventManager em){
         healthAmount -= dmg;
         ActionResult result = new ActionResult();
         if (healthAmount <= 0){

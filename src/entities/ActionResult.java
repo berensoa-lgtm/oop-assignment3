@@ -6,19 +6,19 @@ import java.util.List;
 
 public class ActionResult {
     private boolean moved;
-    private boolean playerDied;
+    private Player playerDied;
     private List<Enemy> killedEnemies;
 
     public ActionResult(){
         this.moved = false;
-        this.playerDied = false;
+        this.playerDied = null;
         this.killedEnemies = new ArrayList<>();
     }
     public void setMoved(boolean b){
         moved = b;
     }
-    public void setPlayerDied(boolean b){
-        playerDied = b;
+    public void setPlayerDied(Player p){
+        playerDied = p;
     }
     public void killedEnemy(Enemy e){
         killedEnemies.add(e);
@@ -28,9 +28,6 @@ public class ActionResult {
         moved = true;
     }
 
-    public void playerKilled() {
-        playerDied = true;
-    }
     public boolean getMoved(){
         return moved;
     }
@@ -38,4 +35,5 @@ public class ActionResult {
     public List<Enemy> getEnemiesKilled() {
         return killedEnemies;
     }
+    public Player getPlayerDied(){return playerDied;}
 }

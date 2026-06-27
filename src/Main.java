@@ -19,15 +19,17 @@ public class Main {
         try{
             String directoryPath = args[0];
             System.out.println("Loading from directory: " + directoryPath);
+            ArrayList<List<String>> levels = new ArrayList<>();
 
-            // Target the specific level file inside that directory!
-            Path levelFilePath = Path.of(directoryPath, "level1.txt");
-            System.out.println("Reading file: " + levelFilePath.toAbsolutePath());
+            int level = 1;
+            Path path = Path.of(directoryPath, "level" + level + ".txt");
 
-            List<String> lines = Files.readAllLines(levelFilePath);
+            while (Files.exists(path)) {
+                levels.add(Files.readAllLines(path));
 
-            List<List<String>> levels = new ArrayList<>();
-            levels.add(lines);
+                level++;
+                path = Path.of(directoryPath, "level" + level + ".txt");
+            }
             GameService GAME = new GameService(levels);
 
             GAME.startGame();

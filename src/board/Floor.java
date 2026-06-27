@@ -28,6 +28,8 @@ public class Floor extends Cell{
     @Override
     public void setOccupant(Occupant occupant) {
         this.occupant = occupant;
+        if (occupant == null)
+            symbol = '.';
     }
     @Override
     public void setSymbol(char c){
