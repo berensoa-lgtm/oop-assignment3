@@ -8,7 +8,7 @@ public class Rogue extends Player{
     private int energyPool;
 
     public Rogue(String name, int health, int attack, int defense, int cost){
-        super.initializeProperties(health, attack, defense, name);
+        super.initializePlayerProperties(health, attack, defense, name, 2);
         this.cost = cost;
         this.currentEnergy = 100;
         this.energyPool = 100;

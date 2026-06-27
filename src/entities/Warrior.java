@@ -8,7 +8,7 @@ public class Warrior extends Player{
     private int abilityCooldown;
     private int remainingCooldown;
     public Warrior(String name, int health, int attack, int defense, int abilityCooldown){
-        super.initializeProperties(health, attack, defense, name);
+        super.initializePlayerProperties(health, attack, defense, name, 3);
         this.abilityCooldown = abilityCooldown;
         this.remainingCooldown = 0;
     }

@@ -1,9 +1,15 @@
 package entities;
 
+import board.Position;
 import level.EventManager;
 
 public abstract class Enemy extends Unit {
     protected int experienceValue;
+
+    public void initializeEnemyProperties(int health, int attack, int defense, String name, int experience){
+        super.initializeProperties(health, attack, defense, name);
+        this.experienceValue = experience;
+    }
 
     @Override
     public ActionResult initializeInteraction(Enemy e, EventManager em){
@@ -26,5 +32,5 @@ public abstract class Enemy extends Unit {
         return occupantVisitor.visit(this, em);
     }
 
-    public abstract ActionResult turn(Player player);
+    public abstract Position turn(Player player, EventManager em);
 }

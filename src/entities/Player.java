@@ -9,17 +9,17 @@ import java.util.List;
 public abstract class Player extends Unit {
     protected int experience;
     protected int playerLevel;
+    protected int abilityRange;
 
     public abstract void cast(List<Unit> inRangeEnemies);
     public abstract void levelUp();
-    public abstract void gameTick();
 
 
-    protected void initializeProperties(int health, int attack, int defense, String name){
-        super.initializeProperties(health, attack, defense);
+    protected void initializePlayerProperties(int health, int attack, int defense, String name, int range){
+        super.initializeProperties(health, attack, defense, name);
         this.experience = 0;
         this.playerLevel = 1;
-        this.name = name;
+        this.abilityRange = range;
     }
 
     protected void levelUpPlayer(){

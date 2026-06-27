@@ -64,7 +64,7 @@ public class Business{
     public boolean enemiesTurn(){
         for (Enemy enemy : units.getEnemies()){
             Position oldPos = enemy.getPos();
-            ActionResult result = enemy.turn(units.getPlayer());
+            ActionResult result = enemy.turn(units.getPlayer(), eventManager);
             if (result.getMoved()){
                 moveUnit(enemy, oldPos, enemy.getPos());
             } else if (result.getPlayerDied() != null){

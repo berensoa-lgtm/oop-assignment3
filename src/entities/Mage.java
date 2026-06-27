@@ -9,16 +9,14 @@ public class Mage extends Player{
     private int manaCost;
     private int spellPower;
     private int hitsCount;
-    private int abilityRange;
 
     public Mage(String name, int health, int attack, int defense, int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange){
-        super.initializeProperties(health, attack, defense, name);
+        super.initializePlayerProperties(health, attack, defense, name, abilityRange);
         this.manaPool = manaPool;
         this.currentMana = manaPool / 4;
         this.manaCost = manaCost;
         this.spellPower = spellPower;
         this.hitsCount = hitsCount;
-        this.abilityRange = abilityRange;
     }
     @Override
     public void gameTick(){
