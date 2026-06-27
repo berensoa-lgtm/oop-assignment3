@@ -24,9 +24,6 @@ public class Business{
         eventManager.addListener(listener);
     }
 
-    public String stringBoard(){
-        return BoardUtils.boardToString(board);
-    }
     public Player getPlayer(){
         return units.getPlayer();
     }
@@ -40,7 +37,7 @@ public class Business{
         Position toPosition = null;
         ActionResult result = null;
         if (c == 'e'){
-            result = player.cast(units.getEnemies());
+            result = player.cast(units.getEnemies(), eventManager);
         } else{
             if (c == 'w')
                 toPosition = userPosition.up();
@@ -58,34 +55,40 @@ public class Business{
         }
         else if (!result.getEnemiesKilled().isEmpty()){
             units.kill(result.getEnemiesKilled());
-            removeUnits(result.getEnemiesKilled());
+            removeEnemies(result.getEnemiesKilled());
         }
+
+        return units.getEnemies().isEmpty();
     }
     public boolean enemiesTurn(){
         for (Enemy enemy : units.getEnemies()){
             Position oldPos = enemy.getPos();
-            ActionResult result = enemy.turn(units.getPlayer(), eventManager);
+            Position newPos = enemy.turn(units.getPlayer(), eventManager);
+            ActionResult result = board.visitCell(newPos, enemy, eventManager);
             if (result.getMoved()){
-                moveUnit(enemy, oldPos, enemy.getPos());
-            } else if (result.getPlayerDied() != null){
-                removeUnits(List.of(result.getPlayerDied()));
+                moveUnit(enemy, oldPos, newPos);
+            } else if (result.getPlayerDied() != null) {
+                removePlayer(result.getPlayerDied());
                 return true;
             }
         }
         return false;
     }
     private void moveUnit(Unit u, Position oldPos, Position newPos){
+        char temp = board.getCell(oldPos).getSymbol();
         board.setOccupant(newPos, new Occupant(u));
         board.setOccupant(oldPos, null);
-        char temp = board.getCell(newPos).getSymbol();
-        board.getCell(newPos).setSymbol(board.getCell(oldPos).getSymbol());
-        board.getCell(oldPos).setSymbol(temp);
+        board.getCell(oldPos).setSymbol(board.getCell(newPos).getSymbol());
+        board.getCell(newPos).setSymbol(temp);
         u.setPos(newPos);
     }
-    private void removeUnits(List<Unit> toRemove){
+    private void removeEnemies(List<Enemy> toRemove){
         for (Unit u : toRemove){
             board.setOccupant(u.getPos(), null);
         }
+    }
+    private void removePlayer(Player p){
+        board.setOccupant(p.getPos(), null);
     }
 
     public GameBoard getBoard() {

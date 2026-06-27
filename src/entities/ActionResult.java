@@ -36,4 +36,10 @@ public class ActionResult {
         return killedEnemies;
     }
     public Player getPlayerDied(){return playerDied;}
+
+    public void killedEnemies(List<Enemy> enemiesKilled) {
+        for (Enemy e : enemiesKilled){
+            killedEnemies.add(e);
+        }
+    }
 }

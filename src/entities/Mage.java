@@ -1,5 +1,7 @@
 package entities;
 
+import level.EventManager;
+
 import java.util.List;
 import java.util.Random;
 
@@ -24,19 +26,23 @@ public class Mage extends Player{
     }
 
     @Override
-    public void cast(List<Unit> inRangeEnemies) {
+    public ActionResult cast(List<Enemy> inRangeEnemies, EventManager em) {
         Random rnd = new Random();
         if(currentMana < manaCost){
-            System.out.println("can't cast special ability: you don't have enough mana");
+            em.publish("can't cast special ability: you don't have enough mana");
+            return new ActionResult();
         }
         else {
             currentMana -= manaCost;
             int hits = 0;
+            ActionResult result = new ActionResult();
             while(hits < hitsCount && !inRangeEnemies.isEmpty())
             {
                 int index = rnd.nextInt(inRangeEnemies.size());
-                InteractionUtils.specialAbilityAttack(inRangeEnemies.get(index),spellPower);
+                ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRangeEnemies.get(index),spellPower, em);
+                result.killedEnemies(hit.getEnemiesKilled());
             }
+            return result;
         }
     }
 

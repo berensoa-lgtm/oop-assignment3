@@ -81,7 +81,7 @@ public class BoardFactory {
                 }
             }
         }
-        enemiesPopulate = enemies;
+        enemiesPopulate.addAll(enemies);
         return new GameBoard(cells);
     }
     private Floor handleEnemy(Enemy e) {

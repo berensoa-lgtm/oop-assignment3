@@ -21,13 +21,13 @@ public class Service{
         b.addListener(cli);
     }
     public void level(Scanner s){
-        boolean playerAlive = true;
-        boolean enemiesAlive = true;
-        while(playerAlive && enemiesAlive){
+        boolean playerDead = false;
+        boolean enemiesDead = false;
+        while(!playerDead && !enemiesDead){
             cli.print(b.getBoard().toString());
             cli.print(b.getPlayer().toString());
-            enemiesAlive = userTurn(s);
-            playerAlive = enemiesTurn();
+            enemiesDead = userTurn(s);
+            playerDead = enemiesTurn();
             gameTick();
         }
 

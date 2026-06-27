@@ -33,7 +33,7 @@ public class Monster extends Enemy{
                 }
             }
             else {
-                if(disY > 0){
+                if(disY < 0){
                     return pos.down();
                 }
                 else {

@@ -32,7 +32,7 @@ public class GameBoard {
         for (int a = 0; a < array.length; a++){
             String row = "";
             for (int b = 0; b < array[a].length; b++){
-                row += array[a][b].symbol;
+                row += array[a][b].getSymbol();
             }
             s += row + "\n";
         }

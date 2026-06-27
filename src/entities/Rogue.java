@@ -1,5 +1,7 @@
 package entities;
 
+import level.EventManager;
+
 import java.util.List;
 
 public class Rogue extends Player{
@@ -15,15 +17,19 @@ public class Rogue extends Player{
     }
 
     @Override
-    public void cast(List<Unit> inRangeEnemies) {
+    public ActionResult cast(List<Enemy> inRangeEnemies, EventManager em) {
         if(currentEnergy < cost){
-            System.out.println("can't cast special ability: you don't have enough energy");
+            em.publish("can't cast special ability: you don't have enough energy");
+            return new ActionResult();
         }
         else {
+            ActionResult result = new ActionResult();
             currentEnergy -= cost;
             for(Unit enemy: inRangeEnemies){
-                InteractionUtils.specialAbilityAttack(enemy,attackPoints);
+                ActionResult hit = InteractionUtils.specialAbilityAttack(this, enemy, attackPoints, em);
+                result.killedEnemies(hit.getEnemiesKilled());
             }
+            return result;
         }
     }
 

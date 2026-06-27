@@ -23,10 +23,14 @@ public class InteractionUtils {
         return new ActionResult();
     }
 
-    public static void specialAbilityAttack(Unit defender, int damage){
+    public static ActionResult specialAbilityAttack(Unit attacker, Unit defender, int damage, EventManager em){
         int defense = rand.nextInt(0, defender.defensePoints);
-        if(damage > defense)
-            defender.loseHealth(damage - defense, em);
+        em.publish(defender.name+" rolled "+defense+" defense points.");
+        if(damage > defense){
+            em.publish(attacker.name+" dealt "+damage+" damage to "+defender.name);
+            return defender.loseHealth(damage - defense, em);
+        }
+        return new ActionResult();
     }
 
     public static double range(Unit a, Unit b){

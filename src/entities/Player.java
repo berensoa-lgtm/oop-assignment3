@@ -3,6 +3,7 @@ package entities;
 import board.Position;
 import level.EventManager;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public abstract class Player extends Unit {
     protected int playerLevel;
     protected int abilityRange;
 
-    public abstract void cast(List<Unit> inRangeEnemies);
+    public abstract ActionResult cast(List<Enemy> inRangeEnemies, EventManager em);
     public abstract void levelUp();
 
 
@@ -55,7 +56,7 @@ public abstract class Player extends Unit {
         healthAmount -= dmg;
         ActionResult result = new ActionResult();
         if (healthAmount <= 0){
-            result.playerKilled();
+            result.setPlayerDied(this);
             em.publish("You lost.");
         }
         return result;
