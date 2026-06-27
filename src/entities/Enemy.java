@@ -31,6 +31,9 @@ public abstract class Enemy extends Unit {
     public ActionResult accept(OccupantVisitor occupantVisitor, EventManager em){
         return occupantVisitor.visit(this, em);
     }
+    public int getExperienceValue(){
+        return this.experienceValue;
+    }
 
     public abstract Position turn(Player player, EventManager em);
 }

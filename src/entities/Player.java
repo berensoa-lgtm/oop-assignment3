@@ -13,7 +13,8 @@ public abstract class Player extends Unit {
     protected int abilityRange;
 
     public abstract ActionResult cast(List<Enemy> inRangeEnemies, EventManager em);
-    public abstract void levelUp();
+
+    public abstract void levelUp(EventManager em);
 
 
     protected void initializePlayerProperties(int health, int attack, int defense, String name, int range){
@@ -21,6 +22,17 @@ public abstract class Player extends Unit {
         this.experience = 0;
         this.playerLevel = 1;
         this.abilityRange = range;
+    }
+
+    protected void gainEnemiesExperience(List<Enemy> killedEnemies, EventManager em){
+        for(Enemy e: killedEnemies)
+        {
+            experience += e.getExperienceValue();
+            em.publish(name + " gained " + e.getExperienceValue() + "experience" );
+            if(experience >= (50 * playerLevel)){
+                levelUp(em);
+            }
+        }
     }
 
     protected void levelUpPlayer(){

@@ -42,17 +42,29 @@ public class Mage extends Player{
                 int index = rnd.nextInt(inRange.size());
                 ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRange.get(index),spellPower, em);
                 result.killedEnemies(hit.getEnemiesKilled());
+                gainEnemiesExperience(result.getEnemiesKilled(), em);
             }
             return result;
         }
     }
 
     @Override
-    public void levelUp() {
+    public void levelUp(EventManager em) {
+        int oldHealth = healthPool;
+        int oldAttack = attackPoints;
+        int oldDefense = defensePoints;
+        int oldSpell = spellPower;
+        int oldMana = spellPower;
+
         super.levelUpPlayer();
         manaPool += (25 * playerLevel);
         currentMana = Math.min(manaPool, currentMana + (manaPool / 4));
         spellPower += (10 * playerLevel);
+
+        int health = (healthPool - oldHealth);
+        int attack = (attackPoints - oldAttack);
+        int defense = (defensePoints - oldDefense);
+        em.publish(name + " reached level" + playerLevel + ": +" + health + " health, +" + attack + " attack, +" + defense + " defense, +" + oldMana + " maximum mana, +" + oldSpell +" spell power");
     }
 
 }

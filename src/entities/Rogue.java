@@ -29,6 +29,7 @@ public class Rogue extends Player{
             for(Unit enemy: inRange){
                 ActionResult hit = InteractionUtils.specialAbilityAttack(this, enemy, attackPoints, em);
                 result.killedEnemies(hit.getEnemiesKilled());
+                gainEnemiesExperience(result.getEnemiesKilled(), em);
             }
             return result;
         }
@@ -41,10 +42,17 @@ public class Rogue extends Player{
     }
 
     @Override
-    public void levelUp() {
+    public void levelUp(EventManager em) {
+        int oldHealth = healthPool;
+        int oldAttack = attackPoints;
+        int oldDefense = defensePoints;
         super.levelUpPlayer();
         currentEnergy = 100;
         attackPoints += (3 * playerLevel);
+        int health = (healthPool - oldHealth);
+        int attack = (attackPoints - oldAttack);
+        int defense = (defensePoints - oldDefense);
+        em.publish(name + " reached level" + playerLevel + ": +" + health + " health, +" + attack + " attack, +" + defense + " defense");
     }
     @Override
     public String toString(){

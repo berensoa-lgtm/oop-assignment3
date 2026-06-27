@@ -28,12 +28,12 @@ public class Warrior extends Player{
             healthAmount = newHealth;
             ActionResult result = new ActionResult();
             if(!inRange.isEmpty()){
-                //need to fix it: it can choose a trap in this current state
                 int index = rnd.nextInt(inRange.size());
                 ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRange.get(index),(int)(healthPool * 0.1), em);
                 result.killedEnemies(hit.getEnemiesKilled());
             }
             remainingCooldown = abilityCooldown;
+            gainEnemiesExperience(result.getEnemiesKilled(), em);
             return result;
         }
     }
@@ -44,11 +44,22 @@ public class Warrior extends Player{
     }
 
     @Override
-    public void levelUp() {
+    public void levelUp(EventManager em) {
+        int oldHealth = healthPool;
+        int oldAttack = attackPoints;
+        int oldDefense = defensePoints;
+
         super.levelUpPlayer();
         remainingCooldown = 0;
         healthPool += (5 * playerLevel);
         attackPoints += (2 * playerLevel);
         defensePoints += playerLevel;
+
+        int health = (healthPool - oldHealth);
+        int attack = (attackPoints - oldAttack);
+        int defense = (defensePoints - oldDefense);
+        em.publish(name + " reached level" + playerLevel + ": +" + health + " health, +" + attack + " attack, +" + defense + " defense");
+
+
     }
 }
