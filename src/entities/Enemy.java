@@ -1,7 +1,7 @@
 package entities;
 
 import board.Position;
-import level.EventManager;
+import game.EventManager;
 
 public abstract class Enemy extends Unit {
     protected int experienceValue;

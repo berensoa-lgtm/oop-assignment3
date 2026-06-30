@@ -1,6 +1,6 @@
 package entities;
 
-import level.EventManager;
+import game.EventManager;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class Rogue extends Player{
     }
 
     @Override
-    public void gameTick(){
+    public void gameTick()  {
         currentEnergy = Math.min(100, currentEnergy + 10);
     }
 

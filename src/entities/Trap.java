@@ -1,7 +1,7 @@
 package entities;
 
 import board.Position;
-import level.EventManager;
+import game.EventManager;
 
 import static entities.InteractionUtils.attack;
 
@@ -34,5 +34,13 @@ public class Trap extends Enemy{
         if (InteractionUtils.range(this,player) < 2)
             attack(this, player, em);
         return pos;
+    }
+
+    @Override
+    public char getSymbol(){
+        if (!visible)
+            return '.';
+        else
+            return symbol;
     }
 }

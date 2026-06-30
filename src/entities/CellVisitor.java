@@ -1,6 +1,6 @@
 package entities;
 import board.*;
-import level.EventManager;
+import game.EventManager;
 
 public class CellVisitor {
     private Unit unit;

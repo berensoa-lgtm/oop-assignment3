@@ -1,6 +1,6 @@
 package entities;
 
-import level.EventManager;
+import game.EventManager;
 
 public class OccupantVisitor {
     private Unit unit;

@@ -1,10 +1,7 @@
 package entities;
 
-import board.Position;
-import level.EventManager;
+import game.EventManager;
 
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player extends Unit {

@@ -1,26 +1,19 @@
-package level;
+package game;
 
-import board.BoardFactory;
 import board.GameBoard;
-import entities.Enemy;
-import entities.Player;
-import entities.Unit;
-import game.GameUnits;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class Service{
-    private Business b;
+public class LevelService {
+    private GameController b;
     private CLI cli;
 
-    public Service (GameBoard gameBoard, GameUnits gameUnits){
-        this.b = new Business(gameBoard, gameUnits);
+    public LevelService(GameBoard gameBoard, GameUnits gameUnits){
+        this.b = new GameController(gameBoard, gameUnits);
         this.cli = new CLI();
         b.addListener(cli);
     }
-    public void level(Scanner s){
+    public boolean startLevel(Scanner s){
         boolean playerDead = false;
         boolean enemiesDead = false;
         while(!playerDead && !enemiesDead){
@@ -30,7 +23,7 @@ public class Service{
             playerDead = enemiesTurn();
             gameTick();
         }
-
+        return enemiesDead;
     }
     public boolean userTurn(Scanner s){
         String input = s.next();

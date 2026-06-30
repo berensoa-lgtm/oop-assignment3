@@ -1,10 +1,9 @@
 package board;
 
-import board.Cell;
 import entities.ActionResult;
 import entities.CellVisitor;
 import entities.Occupant;
-import level.EventManager;
+import game.EventManager;
 
 public class Wall extends Cell {
 

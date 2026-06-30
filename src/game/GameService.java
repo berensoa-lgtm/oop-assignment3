@@ -5,8 +5,6 @@ import board.GameBoard;
 import entities.Enemy;
 import entities.Player;
 import entities.PlayerFactory;
-import entities.Unit;
-import level.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +47,12 @@ public class GameService {
         List<Enemy> enemies = new ArrayList<>();
         GameBoard board = boardFactory.createCells(boardInString, enemies, player);
         GameUnits gameUnits = new GameUnits(enemies, player);
-        Service level = new Service(board, gameUnits);
-        level.level(scanner);
+        LevelService level = new LevelService(board, gameUnits);
+        boolean playerAlive = level.startLevel(scanner);
+        if (playerAlive){
+            currentLevel++;
+            if (levels.size() > currentLevel)
+                nextLevel();
+        }
     }
 }

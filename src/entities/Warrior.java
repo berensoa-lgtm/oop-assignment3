@@ -1,6 +1,6 @@
 package entities;
 
-import level.EventManager;
+import game.EventManager;
 
 import java.util.List;
 import java.util.Random;
@@ -38,7 +38,7 @@ public class Warrior extends Player{
 
     @Override
     public void gameTick(){
-        remainingCooldown -= 1;
+        remainingCooldown = Math.min(0, remainingCooldown - 1);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package entities;
 
-import board.Position;
-import level.EventManager;
+import game.EventManager;
 
 import java.util.Random;
 

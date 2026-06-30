@@ -11,10 +11,10 @@ public class GameUnits {
         player = p;
     }
     public void gameTick(){
-
-        for (Unit u : enemies){
-           // u.gameTick();
+        for (Enemy e : enemies){
+           e.gameTick();
         }
+        player.gameTick();
     }
     public Player getPlayer(){
         return player;
