@@ -28,6 +28,7 @@ public class Warrior extends Player{
             List<Enemy> inRange = inRangeEnemies(lst);
             healthAmount = newHealth;
             ActionResult result = new ActionResult();
+            result.usedAbility();
             if(!inRange.isEmpty()){
                 int index = rnd.nextInt(inRange.size());
                 ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRange.get(index),(int)(healthPool * 0.1), em);

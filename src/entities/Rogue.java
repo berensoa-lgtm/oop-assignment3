@@ -27,6 +27,7 @@ public class Rogue extends Player{
             em.publish(name + " cast " + abilityName + ".");
             List<Enemy> inRange = inRangeEnemies(lst);
             ActionResult result = new ActionResult();
+            result.usedAbility();
             currentEnergy -= cost;
             for(Unit enemy: inRange){
                 ActionResult hit = InteractionUtils.specialAbilityAttack(this, enemy, attackPoints, em);

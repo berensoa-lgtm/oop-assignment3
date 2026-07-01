@@ -18,6 +18,7 @@ public class Occupant {
     public void setSymbol(char c) {
         unit.setSymbol(c);
     }
+
     public char getSymbol(){
         return unit.getSymbol();
     }

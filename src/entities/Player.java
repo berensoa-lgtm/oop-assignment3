@@ -23,7 +23,7 @@ public abstract class Player extends Unit {
         this.abilityRange = range;
     }
 
-    protected void gainEnemiesExperience(List<Enemy> killedEnemies, EventManager em){
+    public void gainEnemiesExperience(List<Enemy> killedEnemies, EventManager em){
         for(Enemy e: killedEnemies)
         {
             experience += e.getExperienceValue();
@@ -83,5 +83,9 @@ public abstract class Player extends Unit {
             em.publish("You lost.");
         }
         return result;
+    }
+
+    public int getExperience(){
+        return experience; //for testing purposes only
     }
 }

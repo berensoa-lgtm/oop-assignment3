@@ -23,8 +23,15 @@ public class GameBoard {
         cell.setOccupant(o);
     }
     public ActionResult visitCell(Position p, Unit u, EventManager em){
+        Position oldPos = u.getPos();
         Cell cell = getCell(p);
-        return cell.accept(new CellVisitor(u), em);
+        ActionResult result = cell.accept(new CellVisitor(u), em);
+        if (result.getMoved()){
+            setOccupant(p, new Occupant(u));
+            setOccupant(oldPos, null);
+            u.setPos(p);
+        }
+        return result;
     }
     public String toString(){
         String s = "";

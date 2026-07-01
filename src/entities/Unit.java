@@ -38,9 +38,11 @@ public abstract class Unit {
     public Position getPos(){
         return pos;
     }
+
     public void setPos(Position p){
         this.pos = p;
     }
+
     public String toString(){
         String s = "";
         s += name + "   ";

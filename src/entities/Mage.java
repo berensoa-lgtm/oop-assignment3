@@ -40,6 +40,7 @@ public class Mage extends Player{
             currentMana -= manaCost;
             int hits = 0;
             ActionResult result = new ActionResult();
+            result.usedAbility();
             while(hits < hitsCount && !inRange.isEmpty())
             {
                 int index = rnd.nextInt(inRange.size());
