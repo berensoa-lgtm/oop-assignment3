@@ -13,6 +13,7 @@ public class Warrior extends Player{
         super.initializePlayerProperties(health, attack, defense, name, 3);
         this.abilityCooldown = abilityCooldown;
         this.remainingCooldown = 0;
+        this.abilityName = "Avenger's Shield";
     }
     @Override
     public ActionResult cast(List<Enemy> lst, EventManager em) {
@@ -22,9 +23,9 @@ public class Warrior extends Player{
             return new ActionResult();
         }
         else {
-            List<Enemy> inRange = inRangeEnemies(lst);
             int newHealth = Math.min(healthPool, healthAmount + (10 * defensePoints));
-            em.publish(name+" used Avenger's Shield, healing for "+(newHealth - healthAmount));
+            em.publish(name + " used " + abilityName + ", healing for " + (newHealth - healthAmount));
+            List<Enemy> inRange = inRangeEnemies(lst);
             healthAmount = newHealth;
             ActionResult result = new ActionResult();
             if(!inRange.isEmpty()){

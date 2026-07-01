@@ -35,7 +35,7 @@ public class Business{
         Player player = units.getPlayer();
         Position userPosition = player.getPos();
         Position toPosition = null;
-        ActionResult result = null;
+        ActionResult result;
         if (c == 'e'){
             result = player.cast(units.getEnemies(), eventManager);
         } else{

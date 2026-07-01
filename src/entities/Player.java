@@ -11,6 +11,7 @@ public abstract class Player extends Unit {
     protected int experience;
     protected int playerLevel;
     protected int abilityRange;
+    protected String abilityName;
 
     public abstract ActionResult cast(List<Enemy> inRangeEnemies, EventManager em);
 
@@ -45,7 +46,11 @@ public abstract class Player extends Unit {
     }
     @Override
     public ActionResult initializeInteraction(Enemy e, EventManager em){
-        return InteractionUtils.attack(this, e, em);
+        ActionResult result = new ActionResult();
+        ActionResult hit = InteractionUtils.attack(this, e, em);
+        result.killedEnemies(hit.getEnemiesKilled());
+        gainEnemiesExperience(result.getEnemiesKilled(), em);
+        return result;
     }
     protected List<Enemy> inRangeEnemies (List<Enemy> enemyList){
         List<Enemy> lst = new ArrayList<>();

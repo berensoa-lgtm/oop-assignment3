@@ -12,6 +12,7 @@ public class Mage extends Player{
     private int spellPower;
     private int hitsCount;
 
+
     public Mage(String name, int health, int attack, int defense, int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange){
         super.initializePlayerProperties(health, attack, defense, name, abilityRange);
         this.manaPool = manaPool;
@@ -19,6 +20,7 @@ public class Mage extends Player{
         this.manaCost = manaCost;
         this.spellPower = spellPower;
         this.hitsCount = hitsCount;
+        this.abilityName = "Blizzard";
     }
     @Override
     public void gameTick(){
@@ -33,6 +35,7 @@ public class Mage extends Player{
             return new ActionResult();
         }
         else {
+            em.publish(name + " cast " + abilityName + ".");
             List<Enemy> inRange = inRangeEnemies(lst);
             currentMana -= manaCost;
             int hits = 0;
@@ -43,6 +46,9 @@ public class Mage extends Player{
                 ActionResult hit = InteractionUtils.specialAbilityAttack(this, inRange.get(index),spellPower, em);
                 result.killedEnemies(hit.getEnemiesKilled());
                 gainEnemiesExperience(result.getEnemiesKilled(), em);
+                for(Enemy e: hit.getEnemiesKilled())
+                    inRange.remove(e);
+                hits += 1;
             }
             return result;
         }
@@ -65,5 +71,12 @@ public class Mage extends Player{
         int attack = (attackPoints - oldAttack);
         int defense = (defensePoints - oldDefense);
         em.publish(name + " reached level" + playerLevel + ": +" + health + " health, +" + attack + " attack, +" + defense + " defense, +" + oldMana + " maximum mana, +" + oldSpell +" spell power");
+    }
+
+    @Override
+    public String toString(){
+        String s = super.toString();
+        s += "   mana: " + currentMana + "   Spell Power: " + spellPower;
+        return s;
     }
 }

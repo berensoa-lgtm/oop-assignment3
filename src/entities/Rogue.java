@@ -14,6 +14,7 @@ public class Rogue extends Player{
         this.cost = cost;
         this.currentEnergy = 100;
         this.energyPool = 100;
+        this.abilityName = "Fan of Knives";
     }
 
     @Override
@@ -23,6 +24,7 @@ public class Rogue extends Player{
             return new ActionResult();
         }
         else {
+            em.publish(name + " cast " + abilityName + ".");
             List<Enemy> inRange = inRangeEnemies(lst);
             ActionResult result = new ActionResult();
             currentEnergy -= cost;
