@@ -1,5 +1,5 @@
-package level;
-import level.EventListener;
+package game;
+import game.EventListener;
 
 import java.util.ArrayList;
 import java.util.List;

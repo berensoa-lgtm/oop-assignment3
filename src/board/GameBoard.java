@@ -1,11 +1,10 @@
 package board;
 
-import board.Cell;
 import entities.ActionResult;
 import entities.CellVisitor;
 import entities.Occupant;
 import entities.Unit;
-import level.EventManager;
+import game.EventManager;
 
 public class GameBoard {
     private Cell[][] array;

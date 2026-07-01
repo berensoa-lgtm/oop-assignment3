@@ -1,9 +1,8 @@
 package entities;
 
-import level.EventManager;
+import game.EventManager;
 
 public class Occupant {
-    private char symbol;
     private Unit unit;
     public Occupant(Unit u){
         this.unit = u;
@@ -17,9 +16,9 @@ public class Occupant {
     }
 
     public void setSymbol(char c) {
-        symbol = c;
+        unit.setSymbol(c);
     }
     public char getSymbol(){
-        return symbol;
+        return unit.getSymbol();
     }
 }

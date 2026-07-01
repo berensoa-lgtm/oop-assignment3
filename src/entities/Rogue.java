@@ -1,6 +1,6 @@
 package entities;
 
-import level.EventManager;
+import game.EventManager;
 
 import java.util.List;
 

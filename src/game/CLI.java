@@ -1,6 +1,4 @@
-package level;
-
-import java.util.List;
+package game;
 
 public class CLI implements EventListener {
     @Override

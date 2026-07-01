@@ -1,4 +1,4 @@
-package level;
+package game;
 
 import board.*;
 import entities.ActionResult;
@@ -6,16 +6,14 @@ import entities.Enemy;
 import entities.Occupant;
 import entities.Player;
 import entities.Unit;
-import game.GameUnits;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Business{
+public class GameController {
     private EventManager eventManager;
     private GameBoard board;
     private GameUnits units;
-    public Business(GameBoard board, GameUnits units){
+    public GameController(GameBoard board, GameUnits units){
         this.board = board;
         this.units = units;
         this.eventManager = new EventManager();
@@ -35,12 +33,10 @@ public class Business{
         Player player = units.getPlayer();
         Position userPosition = player.getPos();
         Position toPosition = null;
-        ActionResult result;
+        ActionResult result = null;
         if (c == 'e'){
             result = player.cast(units.getEnemies(), eventManager);
         } else{
-            if(c == 'q')
-                toPosition = userPosition;
             if (c == 'w')
                 toPosition = userPosition.up();
             else if (c == 'a')
@@ -49,6 +45,8 @@ public class Business{
                 toPosition = userPosition.down();
             else if (c == 'd')
                 toPosition = userPosition.right();
+            else if(c == 'q')
+                toPosition = userPosition;
             result = board.visitCell(toPosition, player, eventManager);
         }
 
@@ -77,11 +75,8 @@ public class Business{
         return false;
     }
     private void moveUnit(Unit u, Position oldPos, Position newPos){
-        char temp = board.getCell(oldPos).getSymbol();
         board.setOccupant(newPos, new Occupant(u));
         board.setOccupant(oldPos, null);
-        board.getCell(oldPos).setSymbol(board.getCell(newPos).getSymbol());
-        board.getCell(newPos).setSymbol(temp);
         u.setPos(newPos);
     }
     private void removeEnemies(List<Enemy> toRemove){

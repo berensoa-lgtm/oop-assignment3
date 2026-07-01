@@ -1,7 +1,7 @@
 package entities;
 
 import board.Position;
-import level.EventManager;
+import game.EventManager;
 
 public abstract class Unit {
     protected String name;
@@ -10,6 +10,15 @@ public abstract class Unit {
     protected int attackPoints;
     protected int defensePoints;
     protected Position pos;
+    protected char symbol;
+
+    public void setSymbol(char c){
+        symbol = c;
+    }
+
+    public char getSymbol(){
+        return symbol;
+    }
 
     abstract ActionResult initializeInteraction(Enemy e, EventManager em);
     abstract ActionResult initializeInteraction(Player p, EventManager em);
