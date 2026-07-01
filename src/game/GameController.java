@@ -1,18 +1,18 @@
 package game;
 
 import board.*;
-import entities.ActionResult;
-import entities.Enemy;
-import entities.Occupant;
-import entities.Player;
-import entities.Unit;
+import entities.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 public class GameController {
     private EventManager eventManager;
     private GameBoard board;
     private GameUnits units;
+
+
     public GameController(GameBoard board, GameUnits units){
         this.board = board;
         this.units = units;
@@ -33,20 +33,11 @@ public class GameController {
         Player player = units.getPlayer();
         Position userPosition = player.getPos();
         Position toPosition = null;
-        ActionResult result = null;
+        ActionResult result;
         if (c == 'e'){
             result = player.cast(units.getEnemies(), eventManager);
         } else{
-            if (c == 'w')
-                toPosition = userPosition.up();
-            else if (c == 'a')
-                toPosition = userPosition.left();
-            else if (c == 's')
-                toPosition = userPosition.down();
-            else if (c == 'd')
-                toPosition = userPosition.right();
-            else if(c == 'q')
-                toPosition = userPosition;
+            toPosition = MovementUtils.playerMove(c,userPosition);
             result = board.visitCell(toPosition, player, eventManager);
         }
 

@@ -14,9 +14,7 @@ public class ActionResult {
         this.playerDied = null;
         this.killedEnemies = new ArrayList<>();
     }
-    public void setMoved(boolean b){
-        moved = b;
-    }
+
     public void setPlayerDied(Player p){
         playerDied = p;
     }

@@ -27,7 +27,6 @@ public class LevelService {
     }
     public boolean userTurn(Scanner s){
         String input = s.next();
-        //validate ?
         char c = input.charAt(0);
         boolean enemiesDead = b.userTurn(c);
         if (enemiesDead){
