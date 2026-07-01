@@ -66,5 +66,4 @@ public class Mage extends Player{
         int defense = (defensePoints - oldDefense);
         em.publish(name + " reached level" + playerLevel + ": +" + health + " health, +" + attack + " attack, +" + defense + " defense, +" + oldMana + " maximum mana, +" + oldSpell +" spell power");
     }
-
 }
