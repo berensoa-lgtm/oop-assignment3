@@ -29,6 +29,10 @@ public class Trap extends Enemy{
         }
     }
 
+    public boolean isVisible(){
+        return visible;
+    }
+
     @Override
     public Position turn(Player player, EventManager em) {
         if (InteractionUtils.range(this,player) < 2)

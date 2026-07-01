@@ -8,11 +8,13 @@ public class ActionResult {
     private boolean moved;
     private Player playerDied;
     private List<Enemy> killedEnemies;
+    private boolean usedAbility; //for testing purposes only
 
     public ActionResult(){
         this.moved = false;
         this.playerDied = null;
         this.killedEnemies = new ArrayList<>();
+        this.usedAbility = false;
     }
 
     public void setPlayerDied(Player p){
@@ -20,6 +22,13 @@ public class ActionResult {
     }
     public void killedEnemy(Enemy e){
         killedEnemies.add(e);
+    }
+    public boolean getUsedAbility(){
+        return usedAbility;
+    }
+
+    public void usedAbility(){
+        this.usedAbility = true;
     }
 
     public void moved() {

@@ -41,10 +41,7 @@ public class GameController {
             result = board.visitCell(toPosition, player, eventManager);
         }
 
-        if (result.getMoved()){
-            moveUnit(player, userPosition, toPosition);
-        }
-        else if (!result.getEnemiesKilled().isEmpty()){
+        if (!result.getEnemiesKilled().isEmpty()){
             units.kill(result.getEnemiesKilled());
             removeEnemies(result.getEnemiesKilled());
         }
@@ -53,22 +50,14 @@ public class GameController {
     }
     public boolean enemiesTurn(){
         for (Enemy enemy : units.getEnemies()){
-            Position oldPos = enemy.getPos();
             Position newPos = enemy.turn(units.getPlayer(), eventManager);
             ActionResult result = board.visitCell(newPos, enemy, eventManager);
-            if (result.getMoved()){
-                moveUnit(enemy, oldPos, newPos);
-            } else if (result.getPlayerDied() != null) {
+            if (result.getPlayerDied() != null) {
                 removePlayer(result.getPlayerDied());
                 return true;
             }
         }
         return false;
-    }
-    private void moveUnit(Unit u, Position oldPos, Position newPos){
-        board.setOccupant(newPos, new Occupant(u));
-        board.setOccupant(oldPos, null);
-        u.setPos(newPos);
     }
     private void removeEnemies(List<Enemy> toRemove){
         for (Unit u : toRemove){

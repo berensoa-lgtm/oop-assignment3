@@ -55,18 +55,19 @@ public class BoardFactory {
                     })
             );
     private final List<Enemy> enemies = new ArrayList<>();
+
     public GameBoard createCells(List<String> lines, List<Enemy> enemiesPopulate, Player player){
+        enemies.clear();
         Cell[][] cells = new Cell[lines.size()][lines.get(0).length()];
         Map<Character, Supplier<Cell>> creators = new HashMap<>(BASE_CREATORS);
         creators.put('@', () -> new Floor(player));
 
-
         for (int row = 0; row < lines.size(); row++){
-
             String l = lines.get(row);
             for (int i = 0; i < l.length(); i++){
-
                 char c = l.charAt(i);
+                if(c == '@')
+                    player.setPos(new Position(i,row));
                 Supplier<Cell> supplier = creators.get(c);
                 if (supplier == null) {
                     supplier = Floor::new;
