@@ -51,8 +51,9 @@ public class GameService {
         boolean playerAlive = level.startLevel(scanner);
         if (playerAlive){
             currentLevel++;
-            if (levels.size() > currentLevel)
+            if (levels.size() > currentLevel) {
                 nextLevel();
+            }
         }
     }
 }
