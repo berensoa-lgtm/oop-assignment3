@@ -45,6 +45,8 @@ public class GameController {
                 toPosition = userPosition.down();
             else if (c == 'd')
                 toPosition = userPosition.right();
+            else if(c == 'q')
+                toPosition = userPosition;
             result = board.visitCell(toPosition, player, eventManager);
         }
 
