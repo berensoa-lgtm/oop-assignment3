@@ -52,4 +52,8 @@ public abstract class Unit {
         return s;
     }
 
+    public int getHealth(){ //for test purposes only
+        return healthAmount;
+    }
+
 }

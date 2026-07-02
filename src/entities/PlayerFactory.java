@@ -4,6 +4,7 @@ import board.Cell;
 import board.Floor;
 import board.Wall;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -17,6 +18,7 @@ public class PlayerFactory {
                     Map.entry('5', () -> new Rogue("Arya Stark", 150, 40, 2, 20)),
                     Map.entry('6', () -> new Rogue("Bronn", 250, 35, 3, 50))
             );
+    public static final List<Character> PLAYER_INDEXES = List.of('1','2','3','4','5','6');
     public static Player createPlayer(char c){
         Supplier<Player> supplier = players.get(c);
         return supplier.get();

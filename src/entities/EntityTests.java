@@ -1,12 +1,9 @@
-package tests;
+package entities;
 
 import board.BoardFactory;
 import board.GameBoard;
 import board.Position;
-import entities.*;
 import game.EventManager;
-import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -201,33 +198,41 @@ public class EntityTests {
     void testEnemyDied(){
         EventManager em = new EventManager();
         int exp = monster.getExperienceValue();
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(monster);
         ActionResult res = InteractionUtils.specialAbilityAttack(warrior,monster,15,em);
         assertFalse(res.getEnemiesKilled().isEmpty());
-        //gainEnemiesExperience(res.getEnemiesKilled(),em);
+        warrior.gainEnemiesExperience(enemies,em);
         assertEquals(exp,warrior.getExperience());
     }
 
     @Test
     void testRegularAttack(){
-
+        List<Enemy> enemies = new ArrayList<>();
+        createBoard(FIGHT_STRING, enemies, rogue);
+        Enemy e = enemies.get(0);
+        int health = e.getHealth();
+        EventManager em = new EventManager();
+        InteractionUtils.attackLogic(rogue,e,10,em);
+        assertEquals(health-10,e.getHealth());
     }
 
     @Test
     void testLevelUp(){
+        EventManager em = new EventManager();
+        int oldLevel = warrior.getLevel();
+        warrior.levelUp(em);
+        assertTrue(oldLevel < warrior.getLevel());
 
     }
 
     @Test
-    void testEnemyDefend(){
-
-    }
-
-    @Test
-    void testEnemyAttack(){
-
-    }
-    @Test
-    void testPlayerDefend(){
-
+    void testPlayerDied(){
+        List<Enemy> enemies = new ArrayList<>();
+        createBoard(FIGHT_STRING, enemies, mage);
+        Enemy e = enemies.get(0);
+        EventManager em = new EventManager();
+        ActionResult res = InteractionUtils.attackLogic(e,mage,60,em);
+        assertNotNull(res.getPlayerDied());
     }
 }

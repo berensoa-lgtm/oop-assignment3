@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 public class MovementUtils {
 
-    private static final List<Character> MOVEMENT_LIST = List.of('w','a','s','d','q');
+    public static final List<Character> MOVEMENT_LIST = List.of('w','a','s','d','q');
     private static final Map<Character, Function<Position, Position>> MOVEMENT_MAP = Map.of(
             'w', Position::up,
             'a', Position::left,

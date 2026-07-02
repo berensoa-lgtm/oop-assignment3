@@ -85,6 +85,10 @@ public abstract class Player extends Unit {
         return result;
     }
 
+    public int getLevel(){
+        return playerLevel; //for testing purposes only
+    }
+
     public int getExperience(){
         return experience; //for testing purposes only
     }

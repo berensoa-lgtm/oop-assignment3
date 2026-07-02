@@ -34,14 +34,13 @@ public class GameController {
         Position userPosition = player.getPos();
         Position toPosition = null;
         ActionResult result;
-        if (c == 'e'){
+        if (c == 'e') {
             result = player.cast(units.getEnemies(), eventManager);
-        } else{
-            toPosition = MovementUtils.playerMove(c,userPosition);
+        } else {
+            toPosition = MovementUtils.playerMove(c, userPosition);
             result = board.visitCell(toPosition, player, eventManager);
         }
-
-        if (!result.getEnemiesKilled().isEmpty()){
+        if (!result.getEnemiesKilled().isEmpty()) {
             units.kill(result.getEnemiesKilled());
             removeEnemies(result.getEnemiesKilled());
         }

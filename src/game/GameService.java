@@ -3,6 +3,7 @@ package game;
 import board.BoardFactory;
 import board.GameBoard;
 import entities.Enemy;
+import entities.InputHandler;
 import entities.Player;
 import entities.PlayerFactory;
 
@@ -15,8 +16,10 @@ public class GameService {
     private int currentLevel;
     private final Scanner scanner;
     private final ArrayList<List<String>> levels;
+    private CLI cli;
     private final BoardFactory boardFactory;
     private final String selectPlayer = """
+            
             Select player:
             1. Jon Snow             Health: 300/300         Attack: 30              Defense: 4              Level: 1                Experience: 0/50                Cooldown: 0/3
             2. The Hound            Health: 400/400         Attack: 20              Defense: 6              Level: 1                Experience: 0/50                Cooldown: 0/5
@@ -31,10 +34,15 @@ public class GameService {
         this.boardFactory = new BoardFactory();
         this.currentLevel = 0;
         this.player = null;
+        this.cli =  new CLI();
     }
     public Player initializePlayer(){
         System.out.println(selectPlayer);
-        String userInput = scanner.next();
+        String userInput = scanner.nextLine();
+        while(userInput.length() != 1 || !InputHandler.isValidCharacter(userInput.charAt(0))){
+            cli.print("no such player, select again please");
+            userInput = scanner.nextLine();
+        }
         char c = userInput.charAt(0);
         return PlayerFactory.createPlayer(c);
     }
@@ -47,7 +55,7 @@ public class GameService {
         List<Enemy> enemies = new ArrayList<>();
         GameBoard board = boardFactory.createCells(boardInString, enemies, player);
         GameUnits gameUnits = new GameUnits(enemies, player);
-        LevelService level = new LevelService(board, gameUnits);
+        LevelService level = new LevelService(board, gameUnits,cli);
         boolean playerAlive = level.startLevel(scanner);
         if (playerAlive){
             currentLevel++;

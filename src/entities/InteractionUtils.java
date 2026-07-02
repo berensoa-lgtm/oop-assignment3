@@ -15,10 +15,16 @@ public class InteractionUtils {
         int defendVal = rand.nextInt(0, defender.defensePoints);
         em.publish(attacker.name+" rolled "+attackVal+" attack points.");
         em.publish(defender.name+" rolled "+defendVal+" defense points.");
-        if (attackVal > defendVal) {
-            int dmg = attackVal - defendVal;
-            em.publish(attacker.name+" dealt "+ dmg +" damage to "+defender.name);
-            return defender.loseHealth(dmg, em);
+        int dmg = attackVal - defendVal;
+        return attackLogic(attacker,defender,dmg,em);
+    }
+
+
+
+    static ActionResult attackLogic(Unit attacker, Unit defender, int damage, EventManager em){
+        if (damage > 0) {
+            em.publish(attacker.name+" dealt "+ damage +" damage to "+defender.name);
+            return defender.loseHealth(damage, em);
         }
         return new ActionResult();
     }
